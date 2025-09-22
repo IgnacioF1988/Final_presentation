@@ -39,7 +39,7 @@
             height: 100%;
             position: absolute;
             background: #ffffff;
-            padding: 40px 60px 60px 60px;
+            padding: 5vh 5vw 10vh 5vw;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -47,6 +47,7 @@
             transform: translateX(100%);
             transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             overflow-y: auto;
+            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
         }
@@ -60,68 +61,68 @@
             transform: translateX(-100%);
         }
 
-        /* Typography - Consistent across all slides */
+        /* Typography - Optimized for fullscreen */
         h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
             color: #0D0D38;
             font-weight: 300;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 3vh, 2rem);
             line-height: 1.2;
             border-bottom: 3px solid #FF6B06;
-            padding-bottom: 1rem;
+            padding-bottom: clamp(0.8rem, 1.5vh, 1rem);
         }
 
         h2 {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 2.8vw, 2.2rem);
             color: #0D0D38;
             font-weight: 300;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.5rem, 3vh, 2rem);
             line-height: 1.2;
             border-bottom: 3px solid #FF6B06;
-            padding-bottom: 1rem;
+            padding-bottom: clamp(0.8rem, 1.5vh, 1rem);
         }
 
         h3 {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.6vw, 1.2rem);
             color: #2044DC;
             font-weight: 600;
-            margin-bottom: 0.8rem;
+            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
         }
 
         h4 {
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 1.4vw, 1rem);
             color: #1a202c;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         h5 {
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 1.3vw, 0.95rem);
             color: #2044DC;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         p {
-            font-size: 0.95rem;
+            font-size: clamp(0.8rem, 1.3vw, 0.95rem);
             line-height: 1.5;
-            margin-bottom: 0.8rem;
+            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
             color: #4a5568;
         }
 
-        /* Common components */
+        /* Common components - Optimized spacing */
         .key-points {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
         }
 
         .point {
             background: #fafafa;
-            padding: 2rem 1.5rem;
+            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
             border-radius: 8px;
             text-align: center;
             border: 1px solid #e2e8f0;
@@ -147,23 +148,23 @@
         }
 
         .point-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: clamp(1.8rem, 3vw, 2rem);
+            margin-bottom: clamp(0.8rem, 1.5vh, 1rem);
             color: #FF6B06;
         }
 
         .cta-section {
             background: linear-gradient(135deg, #0D0D38 0%, #2044DC 100%);
             color: white;
-            padding: 2rem;
+            padding: clamp(1.5rem, 2.5vh, 2rem);
             border-radius: 8px;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: clamp(1.5rem, 3vh, 2rem);
         }
 
         .cta-section h2 {
             color: white;
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             border: none;
             padding: 0;
             margin-bottom: 0;
@@ -174,17 +175,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
         }
 
         .transformation-stage {
             flex: 1;
-            padding: 1.5rem;
+            padding: clamp(1.2rem, 2vh, 1.5rem);
             border-radius: 8px;
             text-align: center;
             border: 1px solid #e2e8f0;
-            min-height: 180px;
+            min-height: clamp(150px, 25vh, 180px);
         }
 
         .current-state {
@@ -197,8 +198,8 @@
         }
 
         .stage-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
+            font-size: clamp(2rem, 3.5vw, 2.5rem);
+            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
         }
 
         .current-state .stage-icon {
@@ -210,21 +211,21 @@
         }
 
         .transformation-arrow {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
             color: #FF6B06;
             font-weight: 300;
         }
 
         .capabilities-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+            gap: clamp(0.8rem, 1.5vw, 1.2rem);
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
         }
 
         .capability {
             background: #fafafa;
-            padding: 1.5rem 1rem;
+            padding: clamp(1rem, 2vh, 1.5rem) clamp(0.8rem, 1.5vw, 1rem);
             border-radius: 8px;
             text-align: center;
             border: 1px solid #e2e8f0;
@@ -237,31 +238,31 @@
         }
 
         .capability-icon {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 2.5vw, 1.8rem);
             color: #46E8E0;
-            margin-bottom: 0.8rem;
+            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
         }
 
         .capability h4 {
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 1.4vw, 0.95rem);
             margin-bottom: 0.5rem;
         }
 
         .capability p {
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
             margin-bottom: 0;
         }
 
         .team-metrics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
         }
 
         .metric-card {
             background: #fafafa;
-            padding: 2rem 1.5rem;
+            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
             border-radius: 8px;
             text-align: center;
             border: 1px solid #e2e8f0;
@@ -280,57 +281,57 @@
         }
 
         .metric-number {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 3.5vw, 2.5rem);
             font-weight: 200;
             color: #FF6B06;
             line-height: 1;
         }
 
         .metric-label {
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
             font-weight: 600;
             color: #1a202c;
-            margin: 0.8rem 0 0.5rem 0;
+            margin: clamp(0.5rem, 1vh, 0.8rem) 0 0.5rem 0;
         }
 
         .metric-description {
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
             color: #4a5568;
         }
 
         .roi-highlight {
             background: #fafafa;
-            padding: 2.5rem 2rem;
+            padding: clamp(2rem, 3.5vh, 2.5rem) clamp(1.5rem, 3vw, 2rem);
             border-radius: 8px;
             text-align: center;
-            margin: 2rem 0;
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
             border: 2px solid #001EAF;
         }
 
         .roi-number {
-            font-size: 3.5rem;
+            font-size: clamp(3rem, 5vw, 3.5rem);
             font-weight: 200;
             color: #46E8E0;
             line-height: 1;
         }
 
         .roi-description {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
             color: #001EAF;
             font-weight: 500;
-            margin-top: 1rem;
+            margin-top: clamp(0.8rem, 1.5vh, 1rem);
         }
 
         .impact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
         }
 
         .impact-section {
             background: #fafafa;
-            padding: 2rem 1.5rem;
+            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
             border-radius: 8px;
             border-left: 4px solid;
         }
@@ -350,7 +351,7 @@
 
         .impact-list li {
             padding: 0.4rem 0;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.3vw, 0.9rem);
             color: #4a5568;
             position: relative;
             padding-left: 1.2rem;
@@ -366,9 +367,9 @@
 
         .timeline {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+            gap: clamp(0.8rem, 1.5vw, 1.2rem);
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
             position: relative;
         }
 
@@ -385,7 +386,7 @@
 
         .milestone {
             background: #fafafa;
-            padding: 1.5rem 1rem;
+            padding: clamp(1rem, 2vh, 1.5rem) clamp(0.8rem, 1.5vw, 1rem);
             border-radius: 8px;
             text-align: center;
             border: 1px solid #e2e8f0;
@@ -408,26 +409,26 @@
         }
 
         .milestone-phase {
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
             font-weight: 600;
             color: #1a202c;
-            margin-bottom: 0.8rem;
+            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
         }
 
         .milestone-description {
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
             color: #4a5568;
         }
 
         .decision-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin: clamp(1.5rem, 3vh, 2rem) 0;
         }
 
         .option {
-            padding: 2rem 1.5rem;
+            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
             border-radius: 8px;
             text-align: center;
             border: 2px solid;
@@ -445,8 +446,8 @@
         }
 
         .option-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
+            font-size: clamp(1.8rem, 3vw, 2rem);
+            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
         }
 
         .invest-option .option-icon {
@@ -460,18 +461,41 @@
         .final-statement {
             background: linear-gradient(135deg, #0D0D38 0%, #2044DC 100%);
             color: white;
-            padding: 2rem;
+            padding: clamp(1.5rem, 2.5vh, 2rem);
             border-radius: 8px;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: clamp(1.5rem, 3vh, 2rem);
         }
 
         .final-statement h3 {
             color: white;
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             font-weight: 400;
             line-height: 1.4;
             margin: 0;
+        }
+
+        .warning-box {
+            background: #fff5f5;
+            border: 2px solid #F8485E;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .warning-icon {
+            font-size: 2rem;
+            color: #F8485E;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .warning-text {
+            text-align: center;
+            color: #991B1B;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0;
         }
 
         /* Navigation */
@@ -548,11 +572,8 @@
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .slide {
-                padding: 30px 20px 80px 20px;
+                padding: 3vh 4vw 12vh 4vw;
             }
-
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.8rem; }
 
             .transformation-flow,
             .problem-visual {
@@ -568,21 +589,35 @@
 
         @media (max-width: 480px) {
             .slide {
-                padding: 25px 15px 75px 15px;
+                padding: 2.5vh 3vw 11vh 3vw;
             }
-
-            h1 { font-size: 1.8rem; }
-            h2 { font-size: 1.6rem; }
         }
 
-        /* Ensure content fits in viewport */
-        @media (max-height: 700px) {
+        /* Fullscreen optimization - Better spacing */
+        @media (min-height: 700px) and (min-width: 1024px) {
             .slide {
-                padding: 20px 40px 50px 40px;
+                padding: 4vh 6vw 9vh 6vw;
             }
-            h1, h2 { margin-bottom: 1.5rem; }
-            .key-points { margin: 1.5rem 0; }
-            .cta-section { padding: 1.5rem; margin-top: 1.5rem; }
+            
+            h1, h2 { 
+                margin-bottom: 2.5vh;
+            }
+            
+            .key-points { 
+                margin: 2.5vh 0;
+            }
+            
+            .cta-section {
+                padding: 2vh;
+                margin-top: auto;
+            }
+        }
+
+        /* Ultra wide screens */
+        @media (min-width: 1920px) {
+            .slide {
+                padding: 5vh 10vw 10vh 10vw;
+            }
         }
     </style>
 </head>
@@ -596,22 +631,32 @@
                 <div class="point">
                     <div class="point-icon">📊</div>
                     <h3>$3M in Junior Talent Lost</h3>
-                    <p>Based on real data from the last 2.5 years: 32 junior professionals left because the work didn't meet their expectations. They spent most of their time cleaning data and generating reports instead of analyzing and creating insights. We failed to challenge them.</p>
+                    <p>Based on real data from the last 2.5 years: 32 junior professionals left because the work didn't meet their expectations. They spent most of their time cleaning data instead of analyzing.</p>
                 </div>
                 <div class="point">
                     <div class="point-icon">⏰</div>
                     <h3>70% Operational Burden</h3>
-                    <p>Our analysts spend 70% of their time on manual data processing instead of generating alpha. This operational/value ratio (70/30) is the opposite of industry leaders who operate at 30/70.</p>
+                    <p>Our analysts spend 70% of their time on manual data processing. This operational/value ratio (70/30) is the opposite of industry leaders (30/70).</p>
                 </div>
                 <div class="point">
                     <div class="point-icon">🎯</div>
                     <h3>40% Productivity Locked</h3>
-                    <p>By flipping our ratio from 70/30 to 30/70, we unlock 40% more time for value creation. This transformation will generate significant returns over the coming years.</p>
+                    <p>By flipping our ratio from 70/30 to 30/70, we unlock 40% more time for value creation and alpha generation.</p>
                 </div>
             </div>
 
+            <div class="warning-box">
+                <div class="warning-icon">⚠️</div>
+                <p class="warning-text">This situation is unsustainable in the digital age</p>
+                <p style="text-align: center; color: #4a5568; font-size: 0.9rem; margin-top: 0.5rem;">
+                    • Not scalable for Patria's 2030 growth objectives<br>
+                    • Incompatible with digital transformation initiatives<br>
+                    • Accelerating competitive disadvantage daily
+                </p>
+            </div>
+
             <div class="cta-section">
-                <h2>While we lose talent to manual processes, competitors are turning data into alpha.<br>With $300K investment, we can reverse this trend and capture substantial benefits over the coming years.</h2>
+                <h2>While we lose talent to manual processes, competitors are turning data into alpha.<br>Every day we delay costs us competitive advantage.</h2>
             </div>
         </div>
 
@@ -625,10 +670,9 @@
                     <h3>Current Reality</h3>
                     <div style="font-size: 2.5rem; color: #F8485E; font-weight: 200; margin: 1rem 0;">70%</div>
                     <p style="font-weight: 600;">Operational Tasks</p>
-                    <p>Our analysts spend most of their time on manual data processing, report generation, and repetitive tasks</p>
+                    <p>Manual data processing, report generation, repetitive work</p>
                     <div style="font-size: 2rem; color: #718096; font-weight: 200; margin: 1rem 0;">30%</div>
                     <p style="font-weight: 600;">Value Creation</p>
-                    <p>Only a fraction of time dedicated to generating investment ideas and strategic insights</p>
                 </div>
                 
                 <div class="point">
@@ -636,10 +680,9 @@
                     <h3>Industry Standard</h3>
                     <div style="font-size: 2.5rem; color: #46E8E0; font-weight: 200; margin: 1rem 0;">30%</div>
                     <p style="font-weight: 600;">Operational Tasks</p>
-                    <p>Leading firms like BlackRock (Aladdin) and Bridgewater have automated most operational work</p>
+                    <p>BlackRock (Aladdin) and Bridgewater automated most operations</p>
                     <div style="font-size: 2rem; color: #2044DC; font-weight: 200; margin: 1rem 0;">70%</div>
                     <p style="font-weight: 600;">Value Creation</p>
-                    <p>Analysts focus on alpha generation, strategic thinking, and competitive intelligence</p>
                 </div>
                 
                 <div class="point">
@@ -647,14 +690,13 @@
                     <h3>The Opportunity</h3>
                     <div style="font-size: 2.5rem; color: #FF6B06; font-weight: 200; margin: 1rem 0;">+40%</div>
                     <p style="font-weight: 600;">Productivity Gain</p>
-                    <p>By inverting our operational/value ratio from 70/30 to 30/70, we unlock 40% more capacity for value creation</p>
-                    <p style="margin-top: 1rem; color: #2044DC; font-weight: 600;">Expected return: $1.2M+ over multiple years</p>
+                    <p style="margin-top: 1rem; color: #2044DC; font-weight: 600;">Expected: $1.2M+ returns over years</p>
                 </div>
             </div>
 
-            <div class="final-statement" style="margin-top: 2rem;">
+            <div class="final-statement" style="margin-top: auto;">
                 <h3>While we operate like it's 2010, competitors are already in 2030.<br>
-                Every day we delay costs us talent, money, and competitive position.</h3>
+                The transformation begins in 2026.</h3>
             </div>
         </div>
 
@@ -666,75 +708,101 @@
                 <div class="metric-card">
                     <div class="metric-number">15</div>
                     <div class="metric-label">Years Building This Bridge</div>
-                    <div class="metric-description">From Credit origins to Institutional Clients evolution—we understand every corner of this business</div>
+                    <div class="metric-description">From Credit origins to Institutional Clients evolution</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-number">13</div>
                     <div class="metric-label">Years Average Experience</div>
-                    <div class="metric-description">Not just data experts, but investment professionals who learned technology to solve real business problems</div>
+                    <div class="metric-description">Investment professionals who learned technology</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-number">100%</div>
                     <div class="metric-label">Business DNA</div>
-                    <div class="metric-description">We are portfolio managers who code, not coders trying to understand portfolios</div>
+                    <div class="metric-description">Portfolio managers who code, not coders trying to understand portfolios</div>
                 </div>
             </div>
 
             <div style="background: #fafafa; padding: 2rem; border-radius: 8px; margin: 2rem 0; border: 1px solid #e2e8f0;">
-                <h3 style="text-align: center; color: #0D0D38; margin-bottom: 2rem; font-size: 1.3rem;">The Evolution That Guarantees Success</h3>
+                <h3 style="text-align: center; color: #0D0D38; margin-bottom: 1.5rem;">Proven Track Record</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; text-align: center;">
+                    <div>
+                        <h4 style="color: #FF6B06;">Profitability Report</h4>
+                        <p style="font-size: 0.8rem;">Automated daily P&L</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #46E8E0;">BIX System</h4>
+                        <p style="font-size: 0.8rem;">Real-time portfolio analytics</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #2044DC;">Company Analysis</h4>
+                        <p style="font-size: 0.8rem;">Integrated research platform</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h2>Projects delivered. Experience proven. Ready to transform.</h2>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Team Evolution (NUEVA) -->
+        <div class="slide">
+            <h2>Transform the Team to Transform the Business</h2>
+
+            <div style="background: #fafafa; padding: 2rem; border-radius: 8px; margin: 2rem 0; border: 1px solid #e2e8f0;">
+                <h3 style="text-align: center; color: #0D0D38; margin-bottom: 2rem;">The Evolution That Guarantees Success</h3>
                 
                 <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
                     <div style="background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
-                        <h4 style="color: #718096; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem;">Today</h4>
-                        <div style="font-size: 2rem; font-weight: 200; color: #F8485E; margin: 0.5rem 0;">4</div>
-                        <p style="color: #718096; font-weight: 600; margin-bottom: 1rem;">BI Team</p>
-                        <ul style="list-style: none; padding: 0; text-align: left;">
-                            <li style="color: #718096; font-size: 0.85rem; padding: 0.2rem 0;">• Reactive support</li>
-                            <li style="color: #718096; font-size: 0.85rem; padding: 0.2rem 0;">• Manual processes</li>
-                            <li style="color: #718096; font-size: 0.85rem; padding: 0.2rem 0;">• Report generation</li>
+                        <h4 style="color: #718096; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem;">TODAY</h4>
+                        <div style="font-size: 3rem; font-weight: 200; color: #F8485E; margin: 0.5rem 0;">4</div>
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">BI Team</p>
+                        <ul style="list-style: none; padding: 0; text-align: left; font-size: 0.85rem;">
+                            <li style="color: #718096;">• Reactive support</li>
+                            <li style="color: #718096;">• Manual processes</li>
+                            <li style="color: #718096;">• Report generation</li>
                         </ul>
                     </div>
                     
-                    <div style="font-size: 1.8rem; color: #FF6B06;">→</div>
+                    <div style="font-size: 2rem; color: #FF6B06;">→</div>
                     
                     <div style="background: #f0fdfa; padding: 1.5rem; border-radius: 8px; border: 1px solid #46E8E0; text-align: center;">
-                        <h4 style="color: #46E8E0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem;">2026</h4>
-                        <div style="font-size: 2rem; font-weight: 200; color: #46E8E0; margin: 0.5rem 0;">7</div>
-                        <p style="color: #0D0D38; font-weight: 600; margin-bottom: 1rem;">Strategic Data Team</p>
-                        <ul style="list-style: none; padding: 0; text-align: left;">
-                            <li style="color: #2044DC; font-size: 0.85rem; padding: 0.2rem 0;">• Data governance owners</li>
-                            <li style="color: #2044DC; font-size: 0.85rem; padding: 0.2rem 0;">• Alpha generation partners</li>
-                            <li style="color: #2044DC; font-size: 0.85rem; padding: 0.2rem 0;">• Strategic advisors</li>
+                        <h4 style="color: #46E8E0; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem;">2026</h4>
+                        <div style="font-size: 3rem; font-weight: 200; color: #46E8E0; margin: 0.5rem 0;">7</div>
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">Strategic Data Team</p>
+                        <ul style="list-style: none; padding: 0; text-align: left; font-size: 0.85rem;">
+                            <li style="color: #2044DC;">• Data governance owners</li>
+                            <li style="color: #2044DC;">• Alpha generation partners</li>
+                            <li style="color: #2044DC;">• Strategic advisors</li>
                         </ul>
                     </div>
                 </div>
 
                 <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
                     <h4 style="text-align: center; color: #0D0D38; margin-bottom: 1.5rem;">New Roles = New Capabilities</h4>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-                        <div style="text-align: center;">
-                            <h5>Data Engineer</h5>
-                            <p style="font-size: 0.85rem; color: #4a5568;">Business architecture designer</p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
+                        <div>
+                            <h5 style="color: #2044DC;">Data Engineer</h5>
+                            <p style="font-size: 0.8rem; color: #4a5568;">Business architecture designer</p>
                         </div>
-                        <div style="text-align: center;">
-                            <h5>Data Scientist (Math)</h5>
-                            <p style="font-size: 0.85rem; color: #4a5568;">Predictive model creator</p>
+                        <div>
+                            <h5 style="color: #2044DC;">Data Scientist (Math)</h5>
+                            <p style="font-size: 0.8rem; color: #4a5568;">Predictive model creator</p>
                         </div>
-                        <div style="text-align: center;">
-                            <h5>Data Scientist (CS)</h5>
-                            <p style="font-size: 0.85rem; color: #4a5568;">AI solution implementer</p>
+                        <div>
+                            <h5 style="color: #2044DC;">Data Scientist (CS)</h5>
+                            <p style="font-size: 0.8rem; color: #4a5568;">AI solution implementer</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="cta-section">
-                <h2>Projects delivered: Profitability Report, BIX System, Company Analysis.<br>
-                Next: Transform these successes into enterprise-wide alpha generation.</h2>
+                <h2>Transform the team → Transform the business → Transform Patria</h2>
             </div>
         </div>
 
-        <!-- SLIDE 4: The Transformation -->
+        <!-- SLIDE 5: The Transformation -->
         <div class="slide">
             <h2>From Manual Reporting to Strategic Alpha Generation</h2>
 
@@ -749,8 +817,8 @@
                 <div class="transformation-stage current-state">
                     <div class="stage-icon">📊</div>
                     <h3>Today: Reactive BI</h3>
-                    <p style="font-size: 0.85rem;"><em>"What happened last month?"</em></p>
-                    <p style="font-size: 0.85rem;">70% operational tasks<br>30% value creation</p>
+                    <p style="font-size: 0.85rem;"><em>"What happened?"</em></p>
+                    <p style="font-size: 0.85rem;">70% operational<br>30% value</p>
                 </div>
                 
                 <div class="transformation-arrow">→</div>
@@ -759,7 +827,7 @@
                     <div class="stage-icon" style="color: #FF6B06;">🚀</div>
                     <h3>2026: Foundation</h3>
                     <p style="font-size: 0.85rem;"><em>"Building the base"</em></p>
-                    <p style="font-size: 0.85rem;">New team & tools<br>Quick wins & pilots</p>
+                    <p style="font-size: 0.85rem;">New team & tools</p>
                 </div>
                 
                 <div class="transformation-arrow">→</div>
@@ -767,43 +835,36 @@
                 <div class="transformation-stage future-state">
                     <div class="stage-icon">🎯</div>
                     <h3>Future: Strategic Intelligence</h3>
-                    <p style="font-size: 0.85rem;"><em>"Where's the next opportunity?"</em></p>
-                    <p style="font-size: 0.85rem;">30% operational tasks<br>70% alpha generation</p>
+                    <p style="font-size: 0.85rem;"><em>"Where's the opportunity?"</em></p>
+                    <p style="font-size: 0.85rem;">30% operational<br>70% alpha</p>
                 </div>
             </div>
 
-            <div style="margin: 1.5rem 0; padding: 1rem; background: #fafafa; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <h4 style="text-align: center; color: #0D0D38; margin-bottom: 1.2rem;">What We'll Build Starting in 2026</h4>
-                <div class="capabilities-grid">
-                    <div class="capability">
-                        <div class="capability-icon">🤖</div>
-                        <h4>AI-Powered Insights</h4>
-                        <p>Begin developing predictive models for investment opportunities</p>
-                    </div>
-                    <div class="capability">
-                        <div class="capability-icon">⚡</div>
-                        <h4>Real-Time Analytics</h4>
-                        <p>Start transition from monthly to daily reporting</p>
-                    </div>
-                    <div class="capability">
-                        <div class="capability-icon">🔄</div>
-                        <h4>Intelligent Automation</h4>
-                        <p>Pilot automation of repetitive data tasks</p>
-                    </div>
-                    <div class="capability">
-                        <div class="capability-icon">💡</div>
-                        <h4>Proactive Recommendations</h4>
-                        <p>Launch first alpha-generation experiments</p>
-                    </div>
+            <div class="capabilities-grid">
+                <div class="capability">
+                    <div class="capability-icon">🤖</div>
+                    <h4>AI-Powered Insights</h4>
+                    <p>Predictive models for investment opportunities</p>
                 </div>
-            </div>
-
-            <div style="text-align: center; color: #4a5568; font-size: 0.9rem; margin-top: 1.5rem;">
-                <strong>2026 Investment: $300K</strong> → Foundation for multi-year transformation → <strong>Long-term value: Exponential</strong>
+                <div class="capability">
+                    <div class="capability-icon">⚡</div>
+                    <h4>Real-Time Analytics</h4>
+                    <p>From monthly to daily reporting</p>
+                </div>
+                <div class="capability">
+                    <div class="capability-icon">🔄</div>
+                    <h4>Intelligent Automation</h4>
+                    <p>Free talent for strategic analysis</p>
+                </div>
+                <div class="capability">
+                    <div class="capability-icon">💡</div>
+                    <h4>Proactive Recommendations</h4>
+                    <p>Alpha generation before opportunities emerge</p>
+                </div>
             </div>
         </div>
 
-        <!-- SLIDE 5: Investment Breakdown -->
+        <!-- SLIDE 6: Investment Breakdown -->
         <div class="slide">
             <h2>Strategic Investment Allocation</h2>
             
@@ -821,7 +882,7 @@
                     </div>
                     <p style="font-weight: 600; margin-bottom: 0.8rem;">Interdisciplinary team:</p>
                     <ul class="impact-list">
-                        <li><strong>Data Engineer</strong><br>Business data architecture design</li>
+                        <li><strong>Data Engineer</strong><br>Business data architecture</li>
                         <li><strong>Data Scientist - Mathematics</strong><br>Advanced modeling and algorithms</li>
                         <li><strong>Data Scientist - Computer Science</strong><br>Implementation and integration</li>
                     </ul>
@@ -835,10 +896,9 @@
                     </div>
                     <p style="font-weight: 600; margin-bottom: 0.8rem;">Upskilling existing expertise:</p>
                     <ul class="impact-list">
-                        <li>Masters in AI/Data Science for senior analysts</li>
+                        <li>Masters in AI/Data Science</li>
                         <li>Advanced BI certifications</li>
-                        <li>Formal training to understand new paradigms</li>
-                        <li>AI adoption strategy development</li>
+                        <li>AI adoption strategy</li>
                     </ul>
                 </div>
 
@@ -850,31 +910,18 @@
                     </div>
                     <p style="font-weight: 600; margin-bottom: 0.8rem;">Technology foundation:</p>
                     <ul class="impact-list">
-                        <li>Web portal "DataQuery" development</li>
-                        <li>AI analyst assistant implementation</li>
+                        <li>Web portal "DataQuery"</li>
+                        <li>AI analyst assistant</li>
                         <li>Cloud services (Vertex AI, BigQuery)</li>
-                        <li>External data source integrations</li>
-                        <li>Security and governance tools</li>
+                        <li>External data integrations</li>
                     </ul>
                 </div>
             </div>
-
-            <div style="background: #f0f7ff; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; text-align: center;">
-                <p style="font-size: 1.1rem; color: #0D0D38; font-weight: 600; margin: 0;">
-                    Investment focused on building sustainable capabilities.<br>
-                    Expected returns will compound over multiple years as the transformation matures.
-                </p>
-            </div>
         </div>
 
-        <!-- SLIDE 6: 2026 Deliverables -->
+        <!-- SLIDE 7: 2026 Deliverables -->
         <div class="slide">
             <h2>2026: The Transformation Begins</h2>
-
-            <div class="roi-highlight">
-                <div class="roi-number">$300,000</div>
-                <div class="roi-description">Investment that builds foundations for long-term value creation</div>
-            </div>
 
             <div class="impact-grid">
                 <div class="impact-section portfolio-impact">
@@ -883,8 +930,8 @@
                         <li>Centralized web portal for all investment data</li>
                         <li>Daily automated reports (from weekly/monthly)</li>
                         <li>Self-service analytics for portfolio managers</li>
-                        <li>Curated databases with external data integration</li>
-                        <li>Data governance framework ensuring quality</li>
+                        <li>Curated databases with external data</li>
+                        <li>Data governance framework</li>
                     </ul>
                 </div>
 
@@ -893,7 +940,7 @@
                     <ul class="impact-list">
                         <li>60% reduction in operational processing time</li>
                         <li>Portfolio managers making data-driven decisions daily</li>
-                        <li>Foundation for AI-powered investment recommendations</li>
+                        <li>Foundation for AI-powered recommendations</li>
                         <li>Scalable model for all Patria verticals globally</li>
                         <li>Competitive advantage through proprietary insights</li>
                     </ul>
@@ -918,9 +965,14 @@
                     <div class="milestone-description">Full production & AI analyst deployment</div>
                 </div>
             </div>
+
+            <div class="cta-section" style="margin-top: 1.5rem;">
+                <h2>Building foundations for long-term value creation.<br>
+                Returns will compound over multiple years as transformation matures.</h2>
+            </div>
         </div>
 
-        <!-- SLIDE 7: The Decision -->
+        <!-- SLIDE 8: The Decision -->
         <div class="slide">
             <h2>From Moneda Patria to Global Patria</h2>
 
@@ -941,7 +993,7 @@
             <div class="decision-options">
                 <div class="option invest-option">
                     <div class="option-icon">✓</div>
-                    <h4>Invest $300K Now</h4>
+                    <h4>Invest Now</h4>
                     <p>Build proprietary capability<br>
                     Generate alpha internally<br>
                     Scale across Patria globally<br>
@@ -961,7 +1013,7 @@
                 <h3>We are not IT. We are not consultants.<br>
                 We are the business team that turns technology into alpha.<br>
                 <br>
-                The transformation of how we do business starts in 2026.<br>
+                The transformation starts in 2026.<br>
                 The decision must be made today.</h3>
             </div>
         </div>
@@ -977,6 +1029,7 @@
             <button class="indicator" data-slide="4"></button>
             <button class="indicator" data-slide="5"></button>
             <button class="indicator" data-slide="6"></button>
+            <button class="indicator" data-slide="7"></button>
         </div>
         
         <div class="nav-controls">
@@ -991,7 +1044,7 @@
             'use strict';
             
             var currentSlide = 0;
-            var totalSlides = 7;
+            var totalSlides = 8;
             
             var slides = document.querySelectorAll('.slide');
             var indicators = document.querySelectorAll('.indicator');
@@ -1145,7 +1198,7 @@
                     } else if (document.webkitExitFullscreen) {
                         document.webkitExitFullscreen();
                     }
-                } else if (e.key >= '1' && e.key <= '7') {
+                } else if (e.key >= '1' && e.key <= '8') {
                     e.preventDefault();
                     goToSlide(parseInt(e.key) - 1);
                 }
