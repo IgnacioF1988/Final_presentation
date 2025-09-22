@@ -153,6 +153,42 @@
             color: #FF6B06;
         }
 
+        .productivity-card {
+            background: #fafafa;
+            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .productivity-card h3 {
+            color: #2044DC;
+            font-size: clamp(1rem, 1.6vw, 1.2rem);
+            margin-bottom: 1rem;
+        }
+
+        .percentage-large {
+            font-size: clamp(2.5rem, 4vw, 3rem);
+            font-weight: 200;
+            margin: 0.5rem 0;
+            line-height: 1;
+        }
+
+        .percentage-label {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+        }
+
+        .percentage-description {
+            font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
         .cta-section {
             background: linear-gradient(135deg, #0D0D38 0%, #2044DC 100%);
             color: white;
@@ -665,42 +701,95 @@
             <h2>The Productivity Revolution We're Missing</h2>
             
             <div class="key-points">
-                <div class="point">
+                <div class="productivity-card">
                     <div class="point-icon">📉</div>
                     <h3>Current Reality</h3>
-                    <div style="font-size: 2.5rem; color: #F8485E; font-weight: 200; margin: 1rem 0;">70%</div>
-                    <p style="font-weight: 600;">Operational Tasks</p>
-                    <p>Manual data processing, report generation, repetitive work</p>
-                    <div style="font-size: 2rem; color: #718096; font-weight: 200; margin: 1rem 0;">30%</div>
-                    <p style="font-weight: 600;">Value Creation</p>
+                    <div class="percentage-large" style="color: #F8485E;">70%</div>
+                    <div class="percentage-label">Operational Tasks</div>
+                    <p class="percentage-description">Our analysts spend most of their time on manual data processing, report generation, and repetitive tasks</p>
+                    <div class="percentage-large" style="color: #718096; font-size: clamp(2rem, 3.5vw, 2.5rem); margin-top: 1rem;">30%</div>
+                    <div class="percentage-label">Value Creation</div>
+                    <p class="percentage-description">Only a fraction of time dedicated to generating investment ideas and strategic insights</p>
                 </div>
                 
-                <div class="point">
+                <div class="productivity-card">
                     <div class="point-icon">🚀</div>
                     <h3>Industry Standard</h3>
-                    <div style="font-size: 2.5rem; color: #46E8E0; font-weight: 200; margin: 1rem 0;">30%</div>
-                    <p style="font-weight: 600;">Operational Tasks</p>
-                    <p>BlackRock (Aladdin) and Bridgewater automated most operations</p>
-                    <div style="font-size: 2rem; color: #2044DC; font-weight: 200; margin: 1rem 0;">70%</div>
-                    <p style="font-weight: 600;">Value Creation</p>
+                    <div class="percentage-large" style="color: #46E8E0;">30%</div>
+                    <div class="percentage-label">Operational Tasks</div>
+                    <p class="percentage-description">Leading firms like BlackRock (Aladdin) and Bridgewater have automated most operational work</p>
+                    <div class="percentage-large" style="color: #2044DC; font-size: clamp(2rem, 3.5vw, 2.5rem); margin-top: 1rem;">70%</div>
+                    <div class="percentage-label">Value Creation</div>
+                    <p class="percentage-description">Analysts focus on alpha generation, strategic thinking, and competitive intelligence</p>
                 </div>
                 
-                <div class="point">
+                <div class="productivity-card">
                     <div class="point-icon">💎</div>
                     <h3>The Opportunity</h3>
-                    <div style="font-size: 2.5rem; color: #FF6B06; font-weight: 200; margin: 1rem 0;">+40%</div>
-                    <p style="font-weight: 600;">Productivity Gain</p>
-                    <p style="margin-top: 1rem; color: #2044DC; font-weight: 600;">Expected: $1.2M+ returns over years</p>
+                    <div class="percentage-large" style="color: #FF6B06;">+40%</div>
+                    <div class="percentage-label">Productivity Gain</div>
+                    <p class="percentage-description">By inverting our operational/value ratio from 70/30 to 30/70, we unlock 40% more capacity for value creation</p>
+                    <p style="margin-top: 1.5rem; color: #2044DC; font-weight: 600; font-size: clamp(0.9rem, 1.5vw, 1.05rem);">Expected return: $1.2M+ over multiple years</p>
                 </div>
             </div>
 
             <div class="final-statement" style="margin-top: auto;">
                 <h3>While we operate like it's 2010, competitors are already in 2030.<br>
-                The transformation begins in 2026.</h3>
+                Every day we delay costs us talent, money, and competitive position.</h3>
             </div>
         </div>
 
-        <!-- SLIDE 3: The Team -->
+        <!-- SLIDE 3: Why Digital Transformations Fail (NEW) -->
+        <div class="slide">
+            <h2>Why Digital Transformations Fail in Financial Services</h2>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <div style="font-size: 4rem; color: #F8485E; font-weight: 200;">70%</div>
+                <p style="font-size: 1.1rem; color: #1a202c; font-weight: 500;">of digital transformation initiatives fail due to IT-business disconnect and implementation challenges</p>
+            </div>
+
+            <div style="display: flex; justify-content: space-around; align-items: center; margin: 3rem 0; gap: 2rem;">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🏢</div>
+                    <h3 style="color: #2044DC; margin-bottom: 0.5rem;">IT Departments</h3>
+                    <p style="font-size: 0.9rem; color: #4a5568;">Operating in silos, disconnected from strategic business decision-making processes</p>
+                </div>
+                
+                <div style="font-size: 3rem; color: #F8485E;">❌</div>
+                
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+                    <h3 style="color: #2044DC; margin-bottom: 0.5rem;">Portfolio Management</h3>
+                    <p style="font-size: 0.9rem; color: #4a5568;">Demanding advanced analytics capabilities, receiving static reports and delayed insights</p>
+                </div>
+            </div>
+
+            <div style="background: #f0fdfa; padding: 2rem; border-radius: 8px; border: 2px solid #46E8E0; margin-top: 2rem;">
+                <h3 style="text-align: center; color: #0D0D38; margin-bottom: 1rem;">Our Vision: Building the Bridge</h3>
+                <p style="text-align: center; font-size: 1.05rem; color: #1a202c; margin-bottom: 1.5rem;">
+                    Not just automation, but capability development through:
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
+                    <div>
+                        <div style="font-size: 2rem; color: #46E8E0;">👤</div>
+                        <h4 style="color: #0D0D38;">People</h4>
+                        <p style="font-size: 0.85rem;">Business experts with technical skills</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; color: #46E8E0;">🔄</div>
+                        <h4 style="color: #0D0D38;">Processes</h4>
+                        <p style="font-size: 0.85rem;">Governed data workflows</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; color: #46E8E0;">⚙️</div>
+                        <h4 style="color: #0D0D38;">Systems</h4>
+                        <p style="font-size: 0.85rem;">Integrated technology stack</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: The Team -->
         <div class="slide">
             <h2>We Are the Bridge: Your Business Team with Data Expertise</h2>
 
@@ -745,7 +834,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 4: Team Evolution (NUEVA) -->
+        <!-- SLIDE 5: Team Evolution (NEW) -->
         <div class="slide">
             <h2>Transform the Team to Transform the Business</h2>
 
@@ -802,7 +891,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 5: The Transformation -->
+        <!-- SLIDE 6: The Transformation -->
         <div class="slide">
             <h2>From Manual Reporting to Strategic Alpha Generation</h2>
 
@@ -864,7 +953,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 6: Investment Breakdown -->
+        <!-- SLIDE 7: Investment Breakdown -->
         <div class="slide">
             <h2>Strategic Investment Allocation</h2>
             
@@ -919,7 +1008,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 7: 2026 Deliverables -->
+        <!-- SLIDE 8: 2026 Deliverables -->
         <div class="slide">
             <h2>2026: The Transformation Begins</h2>
 
@@ -972,7 +1061,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 8: The Decision -->
+        <!-- SLIDE 9: The Decision -->
         <div class="slide">
             <h2>From Moneda Patria to Global Patria</h2>
 
@@ -992,7 +1081,7 @@
 
             <div class="decision-options">
                 <div class="option invest-option">
-                    <div class="option-icon">✓</div>
+                    <div class="option-icon">✔</div>
                     <h4>Invest Now</h4>
                     <p>Build proprietary capability<br>
                     Generate alpha internally<br>
@@ -1030,6 +1119,7 @@
             <button class="indicator" data-slide="5"></button>
             <button class="indicator" data-slide="6"></button>
             <button class="indicator" data-slide="7"></button>
+            <button class="indicator" data-slide="8"></button>
         </div>
         
         <div class="nav-controls">
@@ -1044,7 +1134,7 @@
             'use strict';
             
             var currentSlide = 0;
-            var totalSlides = 8;
+            var totalSlides = 9;
             
             var slides = document.querySelectorAll('.slide');
             var indicators = document.querySelectorAll('.indicator');
@@ -1198,7 +1288,7 @@
                     } else if (document.webkitExitFullscreen) {
                         document.webkitExitFullscreen();
                     }
-                } else if (e.key >= '1' && e.key <= '8') {
+                } else if (e.key >= '1' && e.key <= '9') {
                     e.preventDefault();
                     goToSlide(parseInt(e.key) - 1);
                 }
