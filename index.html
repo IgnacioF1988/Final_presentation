@@ -2,138 +2,270 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Data Strategic Transformation | Moneda Patria</title>
+    
+    <!-- Font Awesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
+        /* ============================================
+           SISTEMA DE DISEÑO - Variables Globales
+           ============================================ */
+        :root {
+            /* Canvas Base */
+            --canvas-width: 1920px;
+            --canvas-height: 1080px;
+            
+            /* Control de ancho de columnas */
+            --grid-max-width: 1400px;
+            
+            /* Espaciados - Sistema 8px estricto */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-xxl: 64px;
+            
+            /* Padding del Slide */
+            --slide-padding-y: 64px;
+            --slide-padding-x: 120px;
+            
+            /* Tipografía - Escala Modular 1.25 (Major Third) */
+            --font-h1: 56px;
+            --font-h2: 44px;
+            --font-h3: 36px;
+            --font-h4: 28px;
+            --font-h5: 22px;
+            --font-body: 18px;
+            --font-small: 16px;
+            --font-tiny: 14px;
+            
+            /* Font Weights Consistentes */
+            --weight-light: 300;
+            --weight-regular: 400;
+            --weight-medium: 500;
+            --weight-semibold: 600;
+            
+            /* Line Heights */
+            --line-height-tight: 1.2;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.7;
+            
+            /* Colores Principales - Refinados para Finanzas */
+            --color-primary: #0D0D38;
+            --color-secondary: #1E3A8A;
+            --color-accent: #EA580C;
+            --color-success: #10B981;
+            --color-danger: #EF4444;
+            --color-neutral: #64748B;
+            --color-light: #F8FAFC;
+            --color-white: #ffffff;
+            
+            /* Colores Adicionales */
+            --color-muted: #94A3B8;
+            --color-border: #E2E8F0;
+            --color-background: #F1F5F9;
+            
+            /* Iconos - Más Consistentes */
+            --icon-large: 40px;
+            --icon-medium: 32px;
+            --icon-small: 24px;
+            --icon-tiny: 20px;
+            
+            /* Bordes */
+            --border-radius: 12px;
+            --border-radius-small: 8px;
+            --border-radius-large: 16px;
+            --border-width: 2px;
+            
+            /* Sombras Sutiles */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --shadow-xl: 0 16px 48px rgba(0,0,0,0.16);
+            
+            /* Transiciones */
+            --transition-base: 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: #ffffff;
-            color: #1a202c;
             overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-        }
-
-        .presentation {
             width: 100vw;
             height: 100vh;
-            position: relative;
-            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
+        /* ============================================
+           CONTENEDOR PRINCIPAL
+           ============================================ */
+        .presentation-container {
+            position: relative;
+            width: var(--canvas-width);
+            height: var(--canvas-height);
+            background: var(--color-white);
+            transform-origin: center center;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15), 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        /* ============================================
+           SLIDES BASE
+           ============================================ */
         .slide {
-            width: 100%;
-            height: 100%;
             position: absolute;
-            background: #ffffff;
-            padding: 5vh 5vw 10vh 5vw;
+            width: var(--canvas-width);
+            height: var(--canvas-height);
+            padding: var(--slide-padding-y) var(--slide-padding-x);
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            background: var(--color-white);
             opacity: 0;
             transform: translateX(100%);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
+            transition: all var(--transition-smooth);
+            pointer-events: none;
         }
 
         .slide.active {
             opacity: 1;
             transform: translateX(0);
+            pointer-events: auto;
+            z-index: 2;
         }
 
         .slide.prev {
+            opacity: 0;
             transform: translateX(-100%);
         }
 
-        /* Typography - Optimized for fullscreen */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        /* ============================================
+           TIPOGRAFÍA BASE
+           ============================================ */
         h1 {
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            color: #0D0D38;
-            font-weight: 300;
+            font-size: var(--font-h1);
+            color: var(--color-primary);
+            font-weight: var(--weight-light);
             text-align: center;
-            margin-bottom: clamp(1.5rem, 3vh, 2rem);
-            line-height: 1.2;
-            border-bottom: 3px solid #FF6B06;
-            padding-bottom: clamp(0.8rem, 1.5vh, 1rem);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--color-accent);
+            line-height: var(--line-height-tight);
+            letter-spacing: -0.02em;
         }
 
         h2 {
-            font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-            color: #0D0D38;
-            font-weight: 300;
+            font-size: var(--font-h2);
+            color: var(--color-primary);
+            font-weight: var(--weight-light);
             text-align: center;
-            margin-bottom: clamp(1.5rem, 3vh, 2rem);
-            line-height: 1.2;
-            border-bottom: 3px solid #FF6B06;
-            padding-bottom: clamp(0.8rem, 1.5vh, 1rem);
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--color-accent);
+            line-height: var(--line-height-tight);
+            letter-spacing: -0.01em;
         }
 
         h3 {
-            font-size: clamp(1rem, 1.6vw, 1.2rem);
-            color: #2044DC;
-            font-weight: 600;
-            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
+            font-size: var(--font-h3);
+            color: var(--color-primary);
+            font-weight: var(--weight-medium);
+            margin-bottom: var(--space-sm);
+            line-height: var(--line-height-tight);
         }
 
         h4 {
-            font-size: clamp(0.9rem, 1.4vw, 1rem);
-            color: #1a202c;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: var(--font-h4);
+            color: var(--color-primary);
+            font-weight: var(--weight-medium);
+            margin-bottom: var(--space-xs);
+            line-height: var(--line-height-normal);
         }
 
         h5 {
-            font-size: clamp(0.85rem, 1.3vw, 0.95rem);
-            color: #2044DC;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: var(--font-h5);
+            color: var(--color-secondary);
+            font-weight: var(--weight-medium);
+            margin-bottom: var(--space-xs);
+            line-height: var(--line-height-normal);
         }
 
         p {
-            font-size: clamp(0.8rem, 1.3vw, 0.95rem);
-            line-height: 1.5;
-            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
-            color: #4a5568;
+            font-size: var(--font-body);
+            line-height: var(--line-height-normal);
+            color: var(--color-neutral);
+            margin-bottom: var(--space-xs);
         }
 
-        /* Common components - Optimized spacing */
+        /* ============================================
+           COMPONENTES REUTILIZABLES
+           ============================================ */
+        
+        /* SLIDE 1: Ajuste de espaciados y mejora visual */
+        .slide:first-child .slide-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
         .key-points {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: clamp(1rem, 2vw, 1.5rem);
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
+            grid-template-columns: 1.1fr 1fr 1.1fr;
+            gap: var(--space-md);
+            flex: 1;
+            align-content: center;
+            margin: var(--space-lg) 0;
+            max-width: 100%;
         }
 
         .point {
-            background: #fafafa;
-            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--color-light) 0%, var(--color-white) 100%);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
             text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             position: relative;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .point:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-color: #FF6B06;
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
+            background: linear-gradient(135deg, #FFF7ED 0%, var(--color-white) 100%);
         }
 
         .point::before {
@@ -142,167 +274,704 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 3px;
-            background: #FF6B06;
+            width: 60px;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width var(--transition-base);
+            opacity: 0.8;
+        }
+
+        .point:hover::before {
+            width: 100px;
+            opacity: 1;
         }
 
         .point-icon {
-            font-size: clamp(1.8rem, 3vw, 2rem);
-            margin-bottom: clamp(0.8rem, 1.5vh, 1rem);
-            color: #FF6B06;
-        }
-
-        .productivity-card {
-            background: #fafafa;
-            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            font-size: var(--icon-large);
+            margin-bottom: var(--space-md);
+            color: var(--color-accent);
+            transition: transform var(--transition-base);
             position: relative;
         }
 
-        .productivity-card h3 {
-            color: #2044DC;
-            font-size: clamp(1rem, 1.6vw, 1.2rem);
-            margin-bottom: 1rem;
-        }
-
-        .percentage-large {
-            font-size: clamp(2.5rem, 4vw, 3rem);
-            font-weight: 200;
-            margin: 0.5rem 0;
-            line-height: 1;
-        }
-
-        .percentage-label {
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 0.5rem;
-        }
-
-        .percentage-description {
-            font-size: clamp(0.8rem, 1.3vw, 0.95rem);
-            color: #4a5568;
-            line-height: 1.4;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, #0D0D38 0%, #2044DC 100%);
+        /* Animación de números en cards */
+        .point-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--color-danger);
             color: white;
-            padding: clamp(1.5rem, 2.5vh, 2rem);
-            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--weight-semibold);
+            font-size: var(--font-small);
+            box-shadow: var(--shadow-md);
+        }
+
+        .point:hover .point-icon {
+            transform: scale(1.05);
+        }
+
+        .point h3 {
+            font-size: var(--font-h4);
+            margin-bottom: var(--space-sm);
+            color: var(--color-primary);
+            line-height: var(--line-height-tight);
+        }
+        
+        .point h3 sup {
+            font-size: var(--font-small);
+            color: var(--color-accent);
+            font-weight: var(--weight-regular);
+            opacity: 0.8;
+        }
+
+        .point p {
+            font-size: var(--font-small);
+            line-height: var(--line-height-normal);
+            color: var(--color-neutral);
+        }
+
+        /* Highlight de números en el texto */
+        .highlight-number {
+            color: var(--color-danger);
+            font-weight: var(--weight-semibold);
+        }
+
+        .highlight-percent {
+            color: var(--color-accent);
+            font-weight: var(--weight-semibold);
+        }
+
+        /* CTA Section - UNIFICADA Y CONSISTENTE */
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: var(--color-white);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius);
             text-align: center;
-            margin-top: clamp(1.5rem, 3vh, 2rem);
+            margin-top: auto;
+            margin-bottom: 0;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            min-height: 100px;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            100% {
+                left: 100%;
+            }
         }
 
         .cta-section h2 {
-            color: white;
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--color-white);
+            font-size: var(--font-h5);
             border: none;
             padding: 0;
-            margin-bottom: 0;
-            font-weight: 400;
+            margin: 0;
+            font-weight: var(--weight-regular);
+            line-height: var(--line-height-relaxed);
+            letter-spacing: 0;
+            position: relative;
+            z-index: 1;
         }
 
-        .transformation-flow {
+        /* Warning Box - Mejorada con mejor espaciado */
+        .warning-box {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FEF2F2 100%);
+            border: 1px solid var(--color-danger);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--border-radius);
+            margin: var(--space-lg) auto var(--space-md);
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+            max-width: 900px;
+            position: relative;
+        }
+
+        .warning-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-danger), transparent);
+        }
+
+        .warning-icon {
+            font-size: var(--icon-medium);
+            color: var(--color-danger);
+            text-align: center;
+            margin-bottom: var(--space-sm);
+            animation: pulse-warning 2s infinite;
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .warning-text {
+            text-align: center;
+            color: var(--color-danger);
+            font-weight: var(--weight-semibold);
+            font-size: var(--font-h4);
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.01em;
+        }
+
+        .warning-box ul {
+            list-style: none;
+            text-align: left;
+            font-size: var(--font-body);
+            color: var(--color-neutral);
+            padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(1rem, 2vw, 1.5rem);
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
+            flex-direction: column;
+            gap: var(--space-sm);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .transformation-stage {
-            flex: 1;
-            padding: clamp(1.2rem, 2vh, 1.5rem);
-            border-radius: 8px;
+        .warning-box ul li {
+            padding: 0;
+            position: relative;
+            padding-left: 32px;
+            line-height: var(--line-height-normal);
+        }
+
+        .warning-box ul li::before {
+            content: '⚠';
+            position: absolute;
+            left: 0;
+            color: var(--color-danger);
+            font-weight: var(--weight-semibold);
+            font-size: 20px;
+        }
+
+        /* Note Box */
+        .note-box {
+            background: #f0f7ff;
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
             text-align: center;
-            border: 1px solid #e2e8f0;
-            min-height: clamp(150px, 25vh, 180px);
+            border: 2px solid var(--color-secondary);
         }
 
-        .current-state {
-            background: #f7fafc;
+        .note-box p {
+            color: var(--color-primary);
+            font-size: var(--font-h3);
+            font-weight: 500;
+            margin: 0;
         }
 
-        .future-state {
-            background: #f0fdfa;
-            border-color: #46E8E0;
+        /* Beyond Box - Clase independiente para el mensaje de potencial */
+        .beyond-box {
+            background: #f0f7ff;
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
+            text-align: center;
+            border: 2px solid var(--color-secondary);
         }
 
-        .stage-icon {
-            font-size: clamp(2rem, 3.5vw, 2.5rem);
-            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
+        .beyond-box p {
+            color: var(--color-primary);
+            font-size: var(--font-h3);
+            font-weight: 500;
+            margin: 0;
         }
 
-        .current-state .stage-icon {
-            color: #718096;
+        /* ============================================
+           COMPONENTES ESPECÍFICOS POR SLIDE
+           ============================================ */
+        
+        /* SLIDE 2: Productivity Revolution - MEJORADA CON DATA VIZ */
+        .slide:nth-child(2) .slide-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
-
-        .future-state .stage-icon {
-            color: #46E8E0;
-        }
-
-        .transformation-arrow {
-            font-size: clamp(1.5rem, 2.5vw, 2rem);
-            color: #FF6B06;
-            font-weight: 300;
-        }
-
-        .capabilities-grid {
+        
+        .productivity-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
-            gap: clamp(0.8rem, 1.5vw, 1.2rem);
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
+            grid-template-columns: 1.2fr 1.2fr 1fr;
+            gap: var(--space-lg);
+            flex: 1;
+            align-content: center;
+            margin: var(--space-lg) 0;
+            max-width: 100%;
         }
 
-        .capability {
-            background: #fafafa;
-            padding: clamp(1rem, 2vh, 1.5rem) clamp(0.8rem, 1.5vw, 1rem);
-            border-radius: 8px;
+        .productivity-card {
+            background: var(--color-light);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--border-radius);
             text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            box-shadow: var(--shadow-sm);
+            position: relative;
         }
 
-        .capability:hover {
-            border-color: #46E8E0;
+        .productivity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .productivity-card:hover::before {
+            opacity: 1;
+        }
+
+        .productivity-card:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
         }
 
-        .capability-icon {
-            font-size: clamp(1.5rem, 2.5vw, 1.8rem);
-            color: #46E8E0;
-            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
+        .productivity-card h3 {
+            font-size: var(--font-h5);
+            margin-bottom: var(--space-md);
+            color: var(--color-primary);
         }
 
-        .capability h4 {
-            font-size: clamp(0.85rem, 1.4vw, 0.95rem);
-            margin-bottom: 0.5rem;
+        .productivity-card .point-icon {
+            font-size: var(--icon-medium);
+            margin-bottom: var(--space-md);
+            transition: transform var(--transition-base);
+            will-change: transform;
         }
 
-        .capability p {
-            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
-            margin-bottom: 0;
+        .productivity-card:hover .point-icon {
+            transform: scale(1.05);
         }
 
+        /* Visualización de porcentajes con barras */
+        .percentage-visual {
+            position: relative;
+            margin: var(--space-md) 0;
+        }
+
+        .percentage-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: var(--space-sm) 0;
+        }
+
+        .percentage-fill {
+            height: 100%;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .productivity-card:nth-child(1) .percentage-fill.operational {
+            background: var(--color-danger);
+            animation: fillBar70 1.5s ease-out forwards;
+        }
+
+        .productivity-card:nth-child(1) .percentage-fill.value {
+            background: var(--color-muted);
+            animation: fillBar30 1.5s ease-out forwards;
+        }
+
+        .productivity-card:nth-child(2) .percentage-fill.operational {
+            background: var(--color-success);
+            animation: fillBar30 1.5s ease-out forwards;
+        }
+
+        .productivity-card:nth-child(2) .percentage-fill.value {
+            background: var(--color-secondary);
+            animation: fillBar70 1.5s ease-out forwards;
+        }
+
+        @keyframes fillBar30 {
+            from { width: 0; }
+            to { width: 30%; }
+        }
+
+        @keyframes fillBar70 {
+            from { width: 0; }
+            to { width: 70%; }
+        }
+
+        .percentage-large {
+            font-size: 48px;
+            font-weight: var(--weight-light);
+            margin: var(--space-xs) 0;
+            line-height: 1;
+            transition: color var(--transition-base);
+            will-change: color;
+            letter-spacing: -0.02em;
+        }
+
+        .productivity-card:hover .percentage-large {
+            filter: brightness(1.1);
+        }
+
+        .percentage-label {
+            font-size: var(--font-body);
+            font-weight: var(--weight-semibold);
+            color: var(--color-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .percentage-description {
+            font-size: var(--font-small);
+            color: var(--color-neutral);
+            line-height: var(--line-height-normal);
+            margin-top: var(--space-xs);
+        }
+
+        /* SLIDE 3: Nueva visualización de fallas - CORREGIDA Y ESCALADA */
+        .failure-visualization {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: var(--space-xl);
+            margin: var(--space-lg) 0;
+            align-items: start;
+            max-width: 100%;
+        }
+
+        .failure-metric {
+            text-align: center;
+            padding-top: var(--space-md);
+          
+        }
+
+        .circular-progress {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto var(--space-md);
+        }
+
+        .progress-ring {
+            animation: drawCircle 2s ease-out forwards;
+        }
+
+        @keyframes drawCircle {
+            from {
+                stroke-dashoffset: 628.3;
+            }
+            to {
+                stroke-dashoffset: 188.5;
+            }
+        }
+
+        .percentage-text {
+            font-size: 56px;
+            font-weight: var(--weight-light);
+            fill: var(--color-danger);
+        }
+
+        .percentage-label {
+            font-size: 14px;
+            font-weight: var(--weight-semibold);
+            fill: var(--color-neutral);
+            letter-spacing: 0.08em;
+        }
+
+        .failure-subtitle {
+            font-size: var(--font-small);
+            color: var(--color-neutral);
+            line-height: var(--line-height-normal);
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        .citation-note {
+            font-size: 11px;
+            color: var(--color-muted);
+            font-style: italic;
+            margin-top: var(--space-xs);
+            max-width: 260px;
+            margin: var(--space-xs) auto 0;
+            line-height: 1.3;
+        }
+
+        .disconnect-diagram {
+            display: grid;
+            grid-template-columns: 380px 100px 380px;
+            gap: var(--space-md);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .entity-card {
+            background: var(--color-light);
+            border-radius: var(--border-radius);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
+            transition: transform var(--transition-base);
+            height: 100%;
+        }
+
+        .entity-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .it-card {
+            border-left: 3px solid var(--color-danger);
+        }
+
+        .business-card {
+            border-right: 3px solid var(--color-danger);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            color: var(--color-primary);
+        }
+
+        .card-header i {
+            font-size: var(--icon-small);
+            color: var(--color-secondary);
+        }
+
+        .card-header h3 {
+            font-size: var(--font-h5);
+            margin: 0;
+            color: var(--color-primary);
+        }
+
+        .card-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .metric-item {
+            display: grid;
+            grid-template-columns: 28px 85px 1fr;
+            gap: var(--space-xs);
+            align-items: center;
+            padding: var(--space-xs);
+            background: var(--color-white);
+            border-radius: var(--border-radius-small);
+        }
+
+        .metric-icon {
+            font-size: var(--font-body);
+            color: var(--color-danger);
+            opacity: 0.8;
+        }
+
+        .metric-icon i {
+            font-size: var(--icon-tiny);
+        }
+
+        .metric-value {
+            font-weight: var(--weight-semibold);
+            color: var(--color-primary);
+            font-size: var(--font-small);
+        }
+
+        .metric-label {
+            font-size: var(--font-tiny);
+            color: var(--color-muted);
+        }
+
+        .disconnect-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .gap-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .gap-line {
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(180deg, transparent, var(--color-danger), transparent);
+        }
+
+        .gap-icon {
+            font-size: 28px;
+            color: var(--color-danger);
+            animation: pulse-disconnect 2s infinite;
+        }
+
+        @keyframes pulse-disconnect {
+            0%, 100% { 
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .gap-label {
+            color: var(--color-danger);
+            font-weight: var(--weight-semibold);
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            margin-top: var(--space-xs);
+        }
+
+        /* Solución mejorada con pilares */
+        .solution-showcase {
+            background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius-large);
+            margin-top: var(--space-lg);
+            border: 1px solid var(--color-success);
+            position: relative;
+        }
+
+        .solution-title {
+            text-align: center;
+            color: var(--color-primary);
+            font-size: var(--font-h4);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        .title-decorator {
+            color: var(--color-success);
+            opacity: 0.3;
+            font-size: var(--font-tiny);
+        }
+
+        .bridge-visualization {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .bridge-pillar {
+            text-align: center;
+            position: relative;
+            padding: var(--space-md);
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-base);
+        }
+
+        .bridge-pillar:hover,
+        .bridge-pillar.featured {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .bridge-pillar.featured {
+            border: 2px solid var(--color-success);
+        }
+
+        .pillar-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto var(--space-sm);
+            background: linear-gradient(135deg, var(--color-success) 0%, #10B981DD 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+        }
+
+        .pillar-bar {
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--color-success), transparent);
+            margin: var(--space-sm) auto;
+        }
+
+        .bridge-pillar h4 {
+            color: var(--color-primary);
+            font-size: var(--font-body);
+            margin-bottom: var(--space-xs);
+            font-weight: var(--weight-semibold);
+        }
+
+        .bridge-pillar p {
+            color: var(--color-neutral);
+            font-size: var(--font-small);
+            margin: 0;
+        }
+
+        /* SLIDE 4: Team Metrics - Refinadas */
         .team-metrics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-            gap: clamp(1rem, 2vw, 1.5rem);
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            max-width: var(--grid-max-width);
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .metric-card {
-            background: #fafafa;
-            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
-            border-radius: 8px;
+            background: var(--color-light);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius);
             text-align: center;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--color-border);
             position: relative;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            overflow: hidden;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .metric-card::before {
@@ -311,73 +980,601 @@
             top: 0;
             left: 0;
             right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+            transition: height var(--transition-base);
+            opacity: 0.8;
+        }
+
+        .metric-card:hover::before {
             height: 3px;
-            background: #FF6B06;
-            border-radius: 8px 8px 0 0;
+            opacity: 1;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
+        }
+
+        .metric-icon {
+            font-size: var(--icon-medium);
+            margin-bottom: var(--space-sm);
+            transition: transform var(--transition-base);
+            will-change: transform;
+        }
+
+        .metric-card:hover .metric-icon {
+            transform: scale(1.05);
         }
 
         .metric-number {
-            font-size: clamp(2rem, 3.5vw, 2.5rem);
-            font-weight: 200;
-            color: #FF6B06;
+            font-size: 52px;
+            font-weight: var(--weight-light);
+            color: var(--color-accent);
             line-height: 1;
+            transition: color var(--transition-base);
+            will-change: color;
+            letter-spacing: -0.02em;
+        }
+
+        .metric-card:hover .metric-number {
+            color: var(--color-secondary);
         }
 
         .metric-label {
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-            font-weight: 600;
-            color: #1a202c;
-            margin: clamp(0.5rem, 1vh, 0.8rem) 0 0.5rem 0;
+            font-size: var(--font-h5);
+            font-weight: var(--weight-semibold);
+            color: var(--color-primary);
+            margin: var(--space-sm) 0;
         }
 
         .metric-description {
-            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
-            color: #4a5568;
+            font-size: var(--font-small);
+            color: var(--color-neutral);
+            line-height: var(--line-height-normal);
         }
 
-        .roi-highlight {
-            background: #fafafa;
-            padding: clamp(2rem, 3.5vh, 2.5rem) clamp(1.5rem, 3vw, 2rem);
-            border-radius: 8px;
+        .track-record {
+            background: var(--color-light);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            border: var(--border-width) solid #e2e8f0;
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-md);
+            max-width: var(--grid-max-width);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .track-record h3 {
             text-align: center;
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
-            border: 2px solid #001EAF;
+            color: var(--color-primary);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-h3);
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        .track-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .track-item-icon {
+            font-size: var(--icon-medium);
+            margin-bottom: var(--space-xs);
+        }
+
+        .track-item h4 {
+            font-size: var(--font-body);
+            margin-bottom: var(--space-xs);
+        }
+
+        .track-item p {
+            font-size: var(--font-small);
+            line-height: var(--line-height-normal);
+        }
+
+        /* SLIDE 5: Team Evolution */
+        .evolution-container {
+            background: var(--color-light);
+            padding: var(--space-md) var(--space-lg) var(--space-sm);
+            border-radius: var(--border-radius);
+            border: var(--border-width) solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-sm);
+        }
+
+        .evolution-flow {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: var(--space-lg);
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .evolution-box {
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .today-box {
+            background: var(--color-white);
+            border: var(--border-width) solid #e2e8f0;
+        }
+
+        .future-box {
+            background: #f0fdfa;
+            border: var(--border-width) solid var(--color-success);
+        }
+
+        .evolution-arrow {
+            font-size: 36px;
+            color: var(--color-accent);
+        }
+
+        .evolution-label {
+            color: var(--color-neutral);
+            text-transform: uppercase;
+            font-size: var(--font-tiny);
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .evolution-number {
+            font-size: 48px;
+            font-weight: 200;
+            margin: var(--space-xs) 0;
+        }
+
+        .evolution-title {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            font-size: var(--font-h5);
+        }
+
+        .evolution-list {
+            font-size: var(--font-small);
+            line-height: var(--line-height-normal);
+        }
+
+        .roles-section {
+            padding-top: var(--space-md);
+            border-top: var(--border-width) solid #e2e8f0;
+        }
+
+        .roles-section h4 {
+            text-align: center;
+            color: var(--color-primary);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-h4);
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        .roles-grid h5 {
+            font-size: var(--font-body);
+            margin-bottom: var(--space-xs);
+        }
+
+        .roles-grid p {
+            font-size: var(--font-small);
+        }
+
+        /* SLIDE 6: Journey Timeline - Nuevo diseño impactante */
+        .journey-container {
+            background: linear-gradient(135deg, var(--color-light) 0%, var(--color-white) 100%);
+            padding: var(--space-lg);
+            border-radius: var(--border-radius-large);
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .journey-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .year-badge {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #DC2626 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--font-h4);
+            font-weight: var(--weight-semibold);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .year-badge::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--color-accent);
+            opacity: 0.3;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+
+        .journey-title h3 {
+            font-size: var(--font-h3);
+            color: var(--color-primary);
+            margin: 0;
+            margin-bottom: var(--space-xs);
+        }
+
+        .journey-title p {
+            font-size: var(--font-body);
+            color: var(--color-neutral);
+            margin: 0;
+        }
+
+        .transformation-timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            position: relative;
+            margin-top: var(--space-lg);
+        }
+
+        .timeline-track {
+            position: absolute;
+            top: 60px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--color-neutral) 0%,
+                var(--color-accent) 25%,
+                var(--color-success) 75%,
+                var(--color-secondary) 100%
+            );
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .timeline-node {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: var(--space-sm);
+            transition: transform var(--transition-base);
+        }
+
+        .timeline-node:hover {
+            transform: translateY(-4px);
+        }
+
+        .node-year {
+            font-size: var(--font-tiny);
+            font-weight: var(--weight-semibold);
+            color: var(--color-muted);
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-sm);
+        }
+
+        .timeline-node.highlighted .node-year {
+            color: var(--color-accent);
+            font-size: var(--font-small);
+        }
+
+        .node-content {
+            background: white;
+            padding: var(--space-sm);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: all var(--transition-base);
+        }
+
+        .timeline-node:hover .node-content {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .timeline-node.highlighted .node-content {
+            border: 2px solid var(--color-accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .node-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto var(--space-xs);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .node-content h4 {
+            font-size: var(--font-body);
+            color: var(--color-primary);
+            margin: var(--space-xs) 0;
+        }
+
+        .node-content p {
+            font-size: var(--font-small);
+            color: var(--color-neutral);
+            font-style: italic;
+            margin: var(--space-xs) 0;
+        }
+
+        .ratio-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: var(--font-tiny);
+            font-weight: var(--weight-semibold);
+            margin-top: var(--space-xs);
+        }
+
+        .ratio-badge.bad {
+            background: #FEE2E2;
+            color: var(--color-danger);
+        }
+
+        .ratio-badge.progress {
+            background: #FFF7ED;
+            color: var(--color-accent);
+        }
+
+        .ratio-badge.better {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .ratio-badge.optimal {
+            background: #DBEAFE;
+            color: var(--color-secondary);
+        }
+
+        .timeline-node.future {
+            opacity: 0.7;
+        }
+
+        .timeline-node.future:hover {
+            opacity: 1;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+            max-width: var(--grid-max-width);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .capability {
+            background: var(--color-light);
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid var(--color-border);
+            transition: all var(--transition-base);
+            cursor: pointer;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .capability:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-success);
+            background: linear-gradient(135deg, var(--color-light) 0%, #F0FDFA 100%);
+        }
+
+        .capability-icon {
+            font-size: var(--icon-large);
+            color: var(--color-success);
+            margin-bottom: var(--space-sm);
+            transition: transform var(--transition-base);
+            will-change: transform;
+        }
+
+        .capability:hover .capability-icon {
+            transform: scale(1.08);
+        }
+
+        .capability h4 {
+            font-size: var(--font-h5);
+            margin-bottom: var(--space-xs);
+            color: var(--color-primary);
+        }
+
+        .capability p {
+            font-size: var(--font-small);
+            margin-bottom: 0;
+            color: var(--color-neutral);
+        }
+
+        /* SLIDE 7: Investment - ROI Refinado */
+        .roi-highlight {
+            background: linear-gradient(135deg, var(--color-light) 0%, #F0F4FF 100%);
+            padding: var(--space-xl);
+            border-radius: var(--border-radius-large);
+            text-align: center;
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            border: 2px solid var(--color-secondary);
+            box-shadow: var(--shadow-md);
+            position: relative;
         }
 
         .roi-number {
-            font-size: clamp(3rem, 5vw, 3.5rem);
-            font-weight: 200;
-            color: #46E8E0;
+            font-size: 64px;
+            font-weight: var(--weight-light);
+            color: var(--color-success);
             line-height: 1;
+            letter-spacing: -0.02em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .roi-number::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-success), transparent);
         }
 
         .roi-description {
-            font-size: clamp(1rem, 1.8vw, 1.1rem);
-            color: #001EAF;
-            font-weight: 500;
-            margin-top: clamp(0.8rem, 1.5vh, 1rem);
+            font-size: var(--font-h4);
+            color: var(--color-primary);
+            font-weight: var(--weight-medium);
+            margin-top: var(--space-md);
         }
 
-        .impact-grid {
+        .investment-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-            gap: clamp(1rem, 2vw, 1.5rem);
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+            max-width: var(--grid-max-width);
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .impact-section {
-            background: #fafafa;
-            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
-            border-radius: 8px;
+        .investment-section {
+            padding: var(--space-lg);
+            border-radius: var(--border-radius);
+            border-left: 3px solid;
+            background: var(--color-light);
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+        }
+
+        .investment-section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .investment-header {
+            text-align: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .investment-icon {
+            font-size: var(--icon-medium);
+            margin-bottom: var(--space-sm);
+        }
+
+        .investment-section h3 {
+            font-size: var(--font-h4);
+            margin-bottom: var(--space-sm);
+            color: var(--color-primary);
+        }
+
+        .investment-amount {
+            font-size: 40px;
+            color: var(--color-accent);
+            font-weight: var(--weight-light);
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.01em;
+        }
+
+        .investment-subtitle {
+            font-weight: var(--weight-semibold);
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-body);
+            color: var(--color-primary);
+        }
+
+        .investment-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .investment-list li {
+            padding: var(--space-xs) 0;
+            font-size: var(--font-small);
+            color: var(--color-neutral);
+            position: relative;
+            padding-left: 20px;
+            line-height: var(--line-height-normal);
+        }
+
+        .investment-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: var(--weight-semibold);
+        }
+
+        /* SLIDE 8: Deliverables */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            margin-top: var(--space-xl);
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            max-width: var(--grid-max-width);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .deliverable-section {
+            padding: var(--space-md);
+            border-radius: var(--border-radius);
             border-left: 4px solid;
+            background: var(--color-light);
         }
 
         .portfolio-impact {
-            border-left-color: #2044DC;
+            border-left-color: var(--color-secondary);
         }
 
         .business-impact {
-            border-left-color: #46E8E0;
+            border-left-color: var(--color-success);
+        }
+
+        .deliverable-section h3 {
+            font-size: var(--font-h4);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .deliverable-section h3 i {
+            font-size: var(--icon-small);
         }
 
         .impact-list {
@@ -386,26 +1583,28 @@
         }
 
         .impact-list li {
-            padding: 0.4rem 0;
-            font-size: clamp(0.8rem, 1.3vw, 0.9rem);
-            color: #4a5568;
+            padding: var(--space-xs) 0;
+            font-size: var(--font-body);
+            color: var(--color-neutral);
             position: relative;
-            padding-left: 1.2rem;
+            padding-left: 24px;
+            line-height: var(--line-height-normal);
         }
 
         .impact-list li::before {
-            content: '▶';
+            content: '→';
             position: absolute;
             left: 0;
-            color: #FF6B06;
-            font-size: 0.7rem;
+            color: var(--color-accent);
+            font-weight: var(--weight-semibold);
         }
 
         .timeline {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
-            gap: clamp(0.8rem, 1.5vw, 1.2rem);
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            margin-top: var(--space-xxl);
+            margin-bottom: var(--space-md);
             position: relative;
         }
 
@@ -416,16 +1615,16 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, #FF6B06, #46E8E0);
+            background: linear-gradient(90deg, var(--color-accent), var(--color-success));
             z-index: 1;
         }
 
         .milestone {
-            background: #fafafa;
-            padding: clamp(1rem, 2vh, 1.5rem) clamp(0.8rem, 1.5vw, 1rem);
-            border-radius: 8px;
+            background: var(--color-light);
+            padding: var(--space-sm);
+            border-radius: var(--border-radius);
             text-align: center;
-            border: 1px solid #e2e8f0;
+            border: var(--border-width) solid #e2e8f0;
             position: relative;
             z-index: 2;
         }
@@ -438,127 +1637,165 @@
             transform: translateX(-50%);
             width: 12px;
             height: 12px;
-            background: #46E8E0;
+            background: var(--color-success);
             border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 1px #46E8E0;
+            border: 3px solid var(--color-white);
+            box-shadow: 0 0 0 2px var(--color-success);
         }
 
         .milestone-phase {
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            font-size: var(--font-h5);
             font-weight: 600;
-            color: #1a202c;
-            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
+            color: var(--color-primary);
+            margin-bottom: var(--space-xs);
         }
 
         .milestone-description {
-            font-size: clamp(0.75rem, 1.2vw, 0.85rem);
-            color: #4a5568;
+            font-size: var(--font-body);
+            color: var(--color-neutral);
+        }
+
+        .disclaimer {
+            text-align: center;
+            color: #718096;
+            font-size: var(--font-body);
+            font-style: italic;
+            margin-top: var(--space-xs);
+        }
+
+        /* SLIDE 9: Decision */
+        .scale-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: var(--space-lg) 0;
+        }
+
+        .scale-box {
+            text-align: center;
+        }
+
+        .scale-number {
+            font-size: 56px;
+            font-weight: 200;
+            line-height: 1;
+        }
+
+        .scale-label {
+            font-weight: 600;
+            font-size: var(--font-h5);
+            margin: var(--space-xs) 0;
+        }
+
+        .scale-desc {
+            color: var(--color-neutral);
+            font-size: var(--font-body);
+        }
+
+        .scale-arrow {
+            font-size: 36px;
+            color: var(--color-accent);
         }
 
         .decision-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: clamp(1rem, 2vw, 1.5rem);
-            margin: clamp(1.5rem, 3vh, 2rem) 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin: var(--space-sm) 0;
         }
 
         .option {
-            padding: clamp(1.5rem, 2.5vh, 2rem) clamp(1rem, 2vw, 1.5rem);
-            border-radius: 8px;
+            padding: var(--space-lg);
+            border-radius: var(--border-radius);
             text-align: center;
-            border: 2px solid;
-            transition: all 0.3s ease;
+            border: 3px solid;
+            transition: transform var(--transition-base),
+                        box-shadow var(--transition-base);
+            cursor: pointer;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .invest-option {
             background: #f0fdfa;
-            border-color: #46E8E0;
+            border-color: var(--color-success);
+        }
+
+        .invest-option:hover {
+            transform: translate3d(0, -4px, 0);
+            box-shadow: 0 15px 30px rgba(70,232,224,0.2);
         }
 
         .wait-option {
             background: #fff5f5;
-            border-color: #F8485E;
+            border-color: var(--color-danger);
+        }
+
+        .wait-option:hover {
+            transform: translate3d(0, -4px, 0);
+            box-shadow: 0 15px 30px rgba(248,72,94,0.2);
         }
 
         .option-icon {
-            font-size: clamp(1.8rem, 3vw, 2rem);
-            margin-bottom: clamp(0.5rem, 1vh, 0.8rem);
+            font-size: var(--icon-large);
+            margin-bottom: var(--space-sm);
         }
 
         .invest-option .option-icon {
-            color: #46E8E0;
+            color: var(--color-success);
         }
 
         .wait-option .option-icon {
-            color: #F8485E;
+            color: var(--color-danger);
         }
 
-        .final-statement {
-            background: linear-gradient(135deg, #0D0D38 0%, #2044DC 100%);
-            color: white;
-            padding: clamp(1.5rem, 2.5vh, 2rem);
-            border-radius: 8px;
+        .option h4 {
+            font-size: var(--font-h3);
+            margin-bottom: var(--space-sm);
+        }
+
+        .option p {
+            font-size: var(--font-body);
+            line-height: var(--line-height-relaxed);
+            text-align: left;
+            display: inline-block;
+            margin: 0 auto;
+        }
+        
+        .option p i {
+            width: 25px;
             text-align: center;
-            margin-top: clamp(1.5rem, 3vh, 2rem);
+            margin-right: 8px;
         }
 
-        .final-statement h3 {
-            color: white;
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            font-weight: 400;
-            line-height: 1.4;
-            margin: 0;
-        }
-
-        .warning-box {
-            background: #fff5f5;
-            border: 2px solid #F8485E;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0 1rem 0;
-        }
-
-        .warning-icon {
-            font-size: 2rem;
-            color: #F8485E;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
-        .warning-text {
-            text-align: center;
-            color: #991B1B;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0;
-        }
-
-        /* Navigation */
+        /* ============================================
+           NAVEGACIÓN
+           ============================================ */
         .navigation {
             position: fixed;
-            bottom: 15px;
+            bottom: clamp(15px, 2vh, 30px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 25px;
+            border-radius: clamp(25px, 3vw, 40px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 10px 18px;
+            padding: clamp(10px, 1.5vh, 20px) clamp(18px, 2vw, 35px);
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .slide-indicators {
             display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: clamp(10px, 1.5vw, 18px);
+            margin-bottom: clamp(10px, 1.5vh, 18px);
             justify-content: center;
         }
 
         .indicator {
-            width: 8px;
-            height: 8px;
+            width: clamp(8px, 1vw, 14px);
+            height: clamp(8px, 1vw, 14px);
             border-radius: 50%;
             background: rgba(13, 13, 56, 0.2);
             cursor: pointer;
@@ -568,10 +1805,15 @@
             padding: 0;
         }
 
+        .indicator:hover {
+            background: rgba(13, 13, 56, 0.4);
+            transform: scale(1.3);
+        }
+
         .indicator.active {
             background: #FF6B06;
-            transform: scale(1.3);
-            box-shadow: 0 0 0 3px rgba(255, 107, 6, 0.2);
+            transform: scale(1.4);
+            box-shadow: 0 0 0 clamp(3px, 0.4vw, 5px) rgba(255, 107, 6, 0.2);
         }
 
         .nav-controls {
@@ -584,14 +1826,21 @@
             background: transparent;
             border: 1px solid rgba(13, 13, 56, 0.2);
             color: #1a202c;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
+            padding: clamp(6px, 1vh, 12px) clamp(14px, 2vw, 28px);
+            border-radius: clamp(20px, 2.5vw, 30px);
+            font-size: clamp(13px, 1.2vw, 18px);
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: inherit;
             outline: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn i {
+            font-size: clamp(12px, 1.1vw, 16px);
         }
 
         .nav-btn:hover,
@@ -599,96 +1848,199 @@
             background: #0D0D38;
             color: white;
             border-color: #0D0D38;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13,13,56,0.15);
         }
 
-        .nav-btn.hidden {
-            display: none;
+        /* Fullscreen mode adjustments */
+        :fullscreen .navigation,
+        :-webkit-full-screen .navigation {
+            opacity: 0.3;
+            transition: opacity 0.3s;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .slide {
-                padding: 3vh 4vw 12vh 4vw;
-            }
+        :fullscreen .navigation:hover,
+        :-webkit-full-screen .navigation:hover {
+            opacity: 0.95;
+        }
 
-            .transformation-flow,
-            .problem-visual {
-                flex-direction: column;
-                gap: 1rem;
-            }
+        :fullscreen,
+        :-webkit-full-screen {
+            background: var(--color-white);
+        }
 
-            .transformation-arrow {
-                transform: rotate(90deg);
-                font-size: 1.5rem;
+        :fullscreen body,
+        :-webkit-full-screen body {
+            background: var(--color-white);
+        }
+
+        :fullscreen .presentation-container,
+        :-webkit-full-screen .presentation-container {
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        /* Footnotes */
+        .footnote {
+            position: absolute;
+            bottom: 20px;
+            left: var(--slide-padding-x);
+            right: var(--slide-padding-x);
+            text-align: left;
+            font-size: 11px;
+            color: var(--color-muted);
+            line-height: 1.3;
+            font-style: italic;
+        }
+        
+        .footnote p {
+            margin: 0;
+            font-size: 11px;
+            color: var(--color-muted);
+        }
+        
+        .footnote sup {
+            font-weight: var(--weight-semibold);
+        }
+
+        /* ============================================
+           ANIMACIONES DE ENTRADA - Más sutiles y profesionales
+           ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media (max-width: 480px) {
-            .slide {
-                padding: 2.5vh 3vw 11vh 3vw;
-            }
+        /* Elementos animados comienzan ocultos */
+        .slide .point,
+        .slide .productivity-card,
+        .slide .metric-card,
+        .slide .capability,
+        .slide .solution-item,
+        .slide .track-item,
+        .slide .investment-section,
+        .slide .deliverable-section,
+        .slide .milestone,
+        .slide .option {
+            opacity: 0;
         }
 
-        /* Fullscreen optimization - Better spacing */
-        @media (min-height: 700px) and (min-width: 1024px) {
-            .slide {
-                padding: 4vh 6vw 9vh 6vw;
-            }
-            
-            h1, h2 { 
-                margin-bottom: 2.5vh;
-            }
-            
-            .key-points { 
-                margin: 2.5vh 0;
-            }
-            
-            .cta-section {
-                padding: 2vh;
-                margin-top: auto;
-            }
+        /* Cuando el slide está activo, se aplican las animaciones */
+        .slide.active .point,
+        .slide.active .productivity-card,
+        .slide.active .metric-card,
+        .slide.active .capability,
+        .slide.active .solution-item,
+        .slide.active .track-item,
+        .slide.active .investment-section,
+        .slide.active .deliverable-section,
+        .slide.active .milestone,
+        .slide.active .option {
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
         }
 
-        /* Ultra wide screens */
-        @media (min-width: 1920px) {
-            .slide {
-                padding: 5vh 10vw 10vh 10vw;
-            }
+        /* Delays escalonados más sutiles */
+        .slide.active .point:nth-child(1),
+        .slide.active .productivity-card:nth-child(1),
+        .slide.active .metric-card:nth-child(1),
+        .slide.active .investment-section:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .slide.active .point:nth-child(2),
+        .slide.active .productivity-card:nth-child(2),
+        .slide.active .metric-card:nth-child(2),
+        .slide.active .investment-section:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .slide.active .point:nth-child(3),
+        .slide.active .productivity-card:nth-child(3),
+        .slide.active .metric-card:nth-child(3),
+        .slide.active .investment-section:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        /* Delays para elementos en grupos de 4 */
+        .slide.active .capability:nth-child(1),
+        .slide.active .milestone:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .slide.active .capability:nth-child(2),
+        .slide.active .milestone:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .slide.active .capability:nth-child(3),
+        .slide.active .milestone:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .slide.active .capability:nth-child(4),
+        .slide.active .milestone:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        /* Delays para elementos en pares */
+        .slide.active .deliverable-section:nth-child(1),
+        .slide.active .option:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .slide.active .deliverable-section:nth-child(2),
+        .slide.active .option:nth-child(2) {
+            animation-delay: 0.1s;
         }
     </style>
 </head>
 <body>
-    <div class="presentation">
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="presentation-container" id="presentationContainer">
+        
         <!-- SLIDE 1: The Urgency -->
         <div class="slide active">
-            <h1>Transform or Become Obsolete</h1>
-            
-            <div class="key-points">
-                <div class="point">
-                    <div class="point-icon">📊</div>
-                    <h3>$3M in Junior Talent Lost</h3>
-                    <p>Based on real data from the last 2.5 years: 32 junior professionals left because the work didn't meet their expectations. They spent most of their time cleaning data instead of analyzing.</p>
+            <div class="slide-content">
+                <h1>Transform or Become Obsolete</h1>
+                
+                <div class="key-points">
+                    <div class="point">
+                        <div class="point-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>$3M in Junior Talent Lost<sup>1</sup></h3>
+                        <p>Based on real data from the last 2.5 years: 32 junior professionals left because the work didn't meet their expectations. They spent most of their time cleaning data instead of analyzing.</p>
+                    </div>
+                    <div class="point">
+                        <div class="point-icon"><i class="fas fa-clock"></i></div>
+                        <h3>70% Operational Burden</h3>
+                        <p>Our analysts spend 70% of their time on manual data processing. This perpetuates team growth to absorb operational tasks from business activities, without technological support to handle these tasks.</p>
+                    </div>
+                    <div class="point">
+                        <div class="point-icon"><i class="fas fa-bullseye"></i></div>
+                        <h3>40% Productivity Locked</h3>
+                        <p>Our operational/value ratio (70/30) is the opposite of industry leaders (30/70). By flipping this ratio, we unlock 40% more time for value creation and alpha generation.</p>
+                    </div>
                 </div>
-                <div class="point">
-                    <div class="point-icon">⏰</div>
-                    <h3>70% Operational Burden</h3>
-                    <p>Our analysts spend 70% of their time on manual data processing. This perpetuates team growth to absorb operational tasks from business activities, without technological support to handle these tasks.</p>
-                </div>
-                <div class="point">
-                    <div class="point-icon">🎯</div>
-                    <h3>40% Productivity Locked</h3>
-                    <p>Our operational/value ratio (70/30) is the opposite of industry leaders (30/70). By flipping this ratio, we unlock 40% more time for value creation and alpha generation.</p>
-                </div>
-            </div>
 
-            <div class="warning-box">
-                <div class="warning-icon">⚠️</div>
-                <p class="warning-text">This situation is unsustainable in the digital age</p>
-                <p style="text-align: center; color: #4a5568; font-size: 0.9rem; margin-top: 0.5rem;">
-                    • Not scalable for Patria's 2030 growth objectives<br>
-                    • Incompatible with digital transformation initiatives<br>
-                    • Accelerating competitive disadvantage daily
-                </p>
+                <div class="warning-box">
+                    <div class="warning-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <p class="warning-text">This situation is unsustainable in the digital age</p>
+                    <ul>
+                        <li>• Not scalable for Patria's 2030 growth objectives</li>
+                        <li>• Incompatible with digital transformation initiatives</li>
+                        <li>• Accelerating competitive disadvantage daily</li>
+                    </ul>
+                </div>
+
+                <div class="footnote">
+                    <p><sup>1</sup> Calculation: 32 associates/analysts × 2.5 years × USD $37,500 (average annual cost) = USD $3M. Only Moneda Patria business areas. Value lost due to lack of systems to retain knowledge generated</p>
+                </div>
+
             </div>
 
             <div class="cta-section">
@@ -696,104 +2048,203 @@
             </div>
         </div>
 
-        <!-- SLIDE 2: Productivity Revolution -->
+        <!-- SLIDE 2: Productivity Revolution - SIMPLIFICADA -->
         <div class="slide">
-            <h2>The Productivity Revolution We're Missing</h2>
-            
-            <div class="key-points">
-                <div class="productivity-card">
-                    <div class="point-icon">📉</div>
-                    <h3>Current Reality</h3>
-                    <div class="percentage-large" style="color: #F8485E;">70%</div>
-                    <div class="percentage-label">Operational Tasks</div>
-                    <p class="percentage-description">Our analysts spend most of their time on manual data processing, report generation, and repetitive tasks</p>
-                    <div class="percentage-large" style="color: #718096; font-size: clamp(2rem, 3.5vw, 2.5rem); margin-top: 1rem;">30%</div>
-                    <div class="percentage-label">Value Creation</div>
-                    <p class="percentage-description">Only a fraction of time dedicated to generating investment ideas and strategic insights</p>
-                </div>
+            <div class="slide-content">
+                <h1>The Productivity Revolution We're Missing</h1>
                 
-                <div class="productivity-card">
-                    <div class="point-icon">🚀</div>
-                    <h3>Our Aspiration</h3>
-                    <div class="percentage-large" style="color: #46E8E0;">30%</div>
-                    <div class="percentage-label">Operational Tasks</div>
-                    <p class="percentage-description">Following leaders like BlackRock (Aladdin platform) who transformed operations through technology, enabling them to scale to manage $21T</p>
-                    <div class="percentage-large" style="color: #2044DC; font-size: clamp(2rem, 3.5vw, 2.5rem); margin-top: 1rem;">70%</div>
-                    <div class="percentage-label">Value Creation</div>
-                    <p class="percentage-description">Empowering analysts for alpha generation, strategic thinking, and competitive intelligence</p>
-                </div>
-                
-                <div class="productivity-card">
-                    <div class="point-icon">💎</div>
-                    <h3>The Opportunity</h3>
-                    <div class="percentage-large" style="color: #FF6B06;">+40%</div>
-                    <div class="percentage-label">Productivity Gain</div>
-                    <p class="percentage-description">By inverting our operational/value ratio from 70/30 to 30/70, we unlock 40% more capacity for value creation</p>
-                    <p style="margin-top: 1.5rem; color: #2044DC; font-weight: 600; font-size: clamp(0.9rem, 1.5vw, 1.05rem);">Lost value: $1.2M+ over past 2.5 years</p>
-                    <p style="color: #4a5568; font-size: clamp(0.75rem, 1.2vw, 0.85rem); margin-top: 0.5rem;">Value we could have captured if junior analysts had spent 70% of their time on value creation instead of operational tasks</p>
+                <div class="productivity-grid">
+                    <div class="productivity-card">
+                        <div>
+                            <div class="point-icon"><i class="fas fa-exclamation-circle"></i></div>
+                            <h3>Current Reality</h3>
+                        </div>
+                        <div>
+                            <div class="percentage-visual">
+                                <div class="percentage-large" style="color: var(--color-danger);">70%</div>
+                                <div class="percentage-label">Operational Tasks</div>
+                                <div class="percentage-bar">
+                                    <div class="percentage-fill operational" style="width: 70%;"></div>
+                                </div>
+                                <p class="percentage-description">Manual data processing, report generation, repetitive tasks</p>
+                            </div>
+                            <div class="percentage-visual" style="margin-top: var(--space-lg);">
+                                <div class="percentage-large" style="color: var(--color-muted); font-size: 40px;">30%</div>
+                                <div class="percentage-label">Value Creation</div>
+                                <div class="percentage-bar">
+                                    <div class="percentage-fill value" style="width: 30%;"></div>
+                                </div>
+                                <p class="percentage-description">Investment ideas and strategic insights</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="productivity-card">
+                        <div>
+                            <div class="point-icon"><i class="fas fa-rocket"></i></div>
+                            <h3>Industry Leaders</h3>
+                        </div>
+                        <div>
+                            <div class="percentage-visual">
+                                <div class="percentage-large" style="color: var(--color-success);">30%</div>
+                                <div class="percentage-label">Operational Tasks</div>
+                                <div class="percentage-bar">
+                                    <div class="percentage-fill operational" style="width: 30%;"></div>
+                                </div>
+                                <p class="percentage-description">BlackRock's Aladdin: Managing $21T with automation</p>
+                            </div>
+                            <div class="percentage-visual" style="margin-top: var(--space-lg);">
+                                <div class="percentage-large" style="color: var(--color-secondary); font-size: 40px;">70%</div>
+                                <div class="percentage-label">Value Creation</div>
+                                <div class="percentage-bar">
+                                    <div class="percentage-fill value" style="width: 70%;"></div>
+                                </div>
+                                <p class="percentage-description">Alpha generation and competitive intelligence</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="productivity-card">
+                        <div>
+                            <div class="point-icon"><i class="fas fa-gem"></i></div>
+                            <h3>The Opportunity</h3>
+                        </div>
+                        <div>
+                            <div class="percentage-large" style="color: var(--color-accent); font-size: 64px; margin: var(--space-md) 0;">+40%</div>
+                            <div class="percentage-label" style="color: var(--color-accent);">Productivity Unlocked</div>
+                            <p class="percentage-description" style="margin-top: var(--space-md);">By inverting our ratio from 70/30 to 30/70</p>
+                            <div style="background: #FFF7ED; padding: var(--space-sm); border-radius: var(--border-radius-small); margin-top: var(--space-md);">
+                                <p style="color: var(--color-secondary); font-weight: var(--weight-semibold); font-size: var(--font-body); margin: 0;">$1.2M+ Lost<sup>1</sup></p>
+                                <p style="color: var(--color-neutral); font-size: var(--font-small); margin: var(--space-xs) 0 0;">Value missed in 2.5 years</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div style="background: #f0f7ff; padding: 1rem 1.5rem; border-radius: 8px; margin: 1.5rem 0; text-align: center; border: 1px solid #2044DC;">
-                <p style="color: #0D0D38; font-size: clamp(0.9rem, 1.5vw, 1rem); font-weight: 500; margin: 0;">
-                    Beyond measurable gains lies enormous potential: bringing cutting-edge technology to our core business activity will create opportunities we cannot yet quantify
-                </p>
+            <div class="footnote">
+                <p><sup>1</sup>  Lost value calculated: By reversing the operational/value ratio from 70/30 to 30/70, the 40% time differential dedicated to value creation equals USD $1.2M annually based on current team cost</p>
             </div>
 
-            <div class="final-statement" style="margin-top: auto;">
-                <h3>While we operate like it's 2010, competitors are already in 2030.<br>
-                Every day we delay costs us talent, money, and competitive position.</h3>
+            <div class="cta-section">
+                <h2>While we operate like it's 2010, competitors are already in 2030.<br>
+                Every day we delay costs us talent, money, and competitive position.</h2>
             </div>
         </div>
 
-        <!-- SLIDE 3: Why Digital Transformations Fail (NEW) -->
+        <!-- SLIDE 3: Why Digital Transformations Fail - COMPLETAMENTE REDISEÑADA CON GRÁFICO ESCALADO -->
         <div class="slide">
-            <h2>Why Digital Transformations Fail in Financial Services</h2>
-            
-            <div style="text-align: center; margin: 2rem 0;">
-                <div style="font-size: 4rem; color: #F8485E; font-weight: 200;">70%</div>
-                <p style="font-size: 1.1rem; color: #1a202c; font-weight: 500;">of digital transformation initiatives fail due to IT-business disconnect and implementation challenges</p>
-            </div>
-
-            <div style="display: flex; justify-content: space-around; align-items: center; margin: 3rem 0; gap: 2rem;">
-                <div style="text-align: center; flex: 1;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🏢</div>
-                    <h3 style="color: #2044DC; margin-bottom: 0.5rem;">IT Departments</h3>
-                    <p style="font-size: 0.9rem; color: #4a5568;">Operating in silos, disconnected from strategic business decision-making processes</p>
-                </div>
+            <div class="slide-content">
+                <h1>Why Digital Transformations Fail in Financial Services</h1>
                 
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-                    <div style="font-size: 1.5rem; color: #F8485E; font-weight: 300;">/ /</div>
-                    <div style="font-size: 1.5rem; color: #F8485E; font-weight: 300;">/ /</div>
-                </div>
-                
-                <div style="text-align: center; flex: 1;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
-                    <h3 style="color: #2044DC; margin-bottom: 0.5rem;">Portfolio Management</h3>
-                    <p style="font-size: 0.9rem; color: #4a5568;">Demanding advanced analytics capabilities, receiving static reports and delayed insights</p>
-                </div>
-            </div>
+                <div class="failure-visualization">
+                    <!-- Estadística impactante con visualización ESCALADA -->
+                    <div class="failure-metric">
+                        <svg class="circular-progress" viewBox="0 0 220 220">
+                            <circle cx="110" cy="110" r="100" fill="none" stroke="#E2E8F0" stroke-width="10"/>
+                            <circle cx="110" cy="110" r="100" fill="none" stroke="#EF4444" stroke-width="10" 
+                                    stroke-dasharray="628.3" stroke-dashoffset="188.5" 
+                                    transform="rotate(-90 110 110)"
+                                    class="progress-ring"/>
+                            <text x="110" y="100" text-anchor="middle" class="percentage-text">70%</text>
+                            <text x="110" y="130" text-anchor="middle" class="percentage-label">FAILURE RATE</text>
+                        </svg>
+                        <p class="failure-subtitle">of digital transformations collapse due to fundamental disconnects<sup>1</sup></p>
+                        <p class="citation-note"><sup>1</sup>McKinsey & Company (2023). "Losing from Day One: Why Even Successful Transformations Fall Short"</p>
+                    </div>
 
-            <div style="background: #f0fdfa; padding: 2rem; border-radius: 8px; border: 2px solid #46E8E0; margin-top: 2rem;">
-                <h3 style="text-align: center; color: #0D0D38; margin-bottom: 1rem;">Our Vision: Building the Bridge</h3>
-                <p style="text-align: center; font-size: 1.05rem; color: #1a202c; margin-bottom: 1.5rem;">
-                    Not just automation, but capability development through:
-                </p>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
-                    <div>
-                        <div style="font-size: 2rem; color: #46E8E0;">🎯</div>
-                        <h4 style="color: #0D0D38;">People</h4>
-                        <p style="font-size: 0.85rem;">Business experts with technical skills</p>
+                    <!-- Visualización del problema con columnas asimétricas -->
+                    <div class="disconnect-diagram">
+                        <div class="diagram-column left-column">
+                            <div class="entity-card it-card">
+                                <div class="card-header">
+                                    <i class="fas fa-server"></i>
+                                    <h3>IT Reality</h3>
+                                </div>
+                                <div class="card-metrics">
+                                    <div class="metric-item negative">
+                                        <span class="metric-icon"><i class="fas fa-calendar-alt"></i></span>
+                                        <span class="metric-value">Vendor-Driven</span>
+                                        <span class="metric-label">Implementation</span>
+                                    </div>
+                                    <div class="metric-item negative">
+                                        <span class="metric-icon"><i class="fas fa-lock"></i></span>
+                                        <span class="metric-value">Ticket-based</span>
+                                        <span class="metric-label">Operating model</span>
+                                    </div>
+                                    <div class="metric-item negative">
+                                        <span class="metric-icon"><i class="fas fa-cog"></i></span>
+                                        <span class="metric-value">Security-first</span>
+                                        <span class="metric-label">Business last</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="disconnect-center">
+                            <div class="gap-indicator">
+                                <div class="gap-line"></div>
+                                <i class="fas fa-link-slash gap-icon"></i>
+                                <div class="gap-line"></div>
+                            </div>
+                            <div class="gap-label">THE FATAL GAP</div>
+                        </div>
+
+                        <div class="diagram-column right-column">
+                            <div class="entity-card business-card">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-line"></i>
+                                    <h3>Business Needs</h3>
+                                </div>
+                                <div class="card-metrics">
+                                    <div class="metric-item negative">
+                                        <span class="metric-icon"><i class="fas fa-bolt"></i></span>
+                                        <span class="metric-value">Real-time</span>
+                                        <span class="metric-label">Decision making</span>
+                                    </div>
+                                    <div class="metric-item negative">
+                                        <span class="metric-icon"><i class="fas fa-crosshairs"></i></span>
+                                        <span class="metric-value">Alpha</span>
+                                        <span class="metric-label">Generation focus</span>
+                                    </div>
+                                    <div class="metric-item negative">
+                                        <span class="metric-icon"><i class="fas fa-chart-line"></i></span>
+                                        <span class="metric-value">Agile</span>
+                                        <span class="metric-label">Market response</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <div style="font-size: 2rem; color: #46E8E0;">⚡</div>
-                        <h4 style="color: #0D0D38;">Processes</h4>
-                        <p style="font-size: 0.85rem;">Governed data workflows</p>
-                    </div>
-                    <div>
-                        <div style="font-size: 2rem; color: #46E8E0;">🔧</div>
-                        <h4 style="color: #0D0D38;">Systems</h4>
-                        <p style="font-size: 0.85rem;">Integrated technology stack</p>
+                </div>
+
+                <!-- Solución visual mejorada -->
+                <div class="solution-showcase">
+                    <h3 class="solution-title">
+                        <span class="title-decorator">━━━</span>
+                        Our Solution: The Missing Bridge
+                        <span class="title-decorator">━━━</span>
+                    </h3>
+                    
+                    <div class="bridge-visualization">
+                        <div class="bridge-pillar">
+                            <div class="pillar-icon"><i class="fas fa-users"></i></div>
+                            <h4>Hybrid Team</h4>
+                            <div class="pillar-bar"></div>
+                            <p>Business experts who code</p>
+                        </div>
+                        <div class="bridge-pillar featured">
+                            <div class="pillar-icon"><i class="fas fa-project-diagram"></i></div>
+                            <h4>Integrated Process</h4>
+                            <div class="pillar-bar"></div>
+                            <p>End-to-end ownership</p>
+                        </div>
+                        <div class="bridge-pillar">
+                            <div class="pillar-icon"><i class="fas fa-layer-group"></i></div>
+                            <h4>Unified Stack</h4>
+                            <div class="pillar-bar"></div>
+                            <p>Business-first technology</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -801,46 +2252,48 @@
 
         <!-- SLIDE 4: The Team -->
         <div class="slide">
-            <h2>We Are the Bridge: Your Business Team with Data Expertise</h2>
+            <div class="slide-content">
+                <h1>We Are the Bridge: Your Business Team with Data Expertise</h1>
 
-            <div class="team-metrics">
-                <div class="metric-card">
-                    <div style="font-size: 2.5rem; color: #FF6B06; margin-bottom: 0.5rem;">📈</div>
-                    <div class="metric-number">15</div>
-                    <div class="metric-label">Years Building This Bridge</div>
-                    <div class="metric-description">From Credit origins to Institutional Clients evolution</div>
+                <div class="team-metrics">
+                    <div class="metric-card">
+                        <div class="metric-icon" style="color: var(--color-accent);"><i class="fas fa-chart-area"></i></div>
+                        <div class="metric-number">15</div>
+                        <div class="metric-label">Years Building This Bridge</div>
+                        <div class="metric-description">From Credit origins to Institutional Clients evolution</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="color: var(--color-success);"><i class="fas fa-award"></i></div>
+                        <div class="metric-number">13</div>
+                        <div class="metric-label">Years Average Experience</div>
+                        <div class="metric-description">Investment professionals who learned technology</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" style="color: var(--color-secondary);"><i class="fas fa-dna"></i></div>
+                        <div class="metric-number">100%</div>
+                        <div class="metric-label">Business DNA</div>
+                        <div class="metric-description">Business partners who code, not coders trying to understand portfolios</div>
+                    </div>
                 </div>
-                <div class="metric-card">
-                    <div style="font-size: 2.5rem; color: #46E8E0; margin-bottom: 0.5rem;">🎯</div>
-                    <div class="metric-number">13</div>
-                    <div class="metric-label">Years Average Experience</div>
-                    <div class="metric-description">Investment professionals who learned technology</div>
-                </div>
-                <div class="metric-card">
-                    <div style="font-size: 2.5rem; color: #2044DC; margin-bottom: 0.5rem;">💎</div>
-                    <div class="metric-number">100%</div>
-                    <div class="metric-label">Business DNA</div>
-                    <div class="metric-description">Business partners who code, not coders trying to understand portfolios</div>
-                </div>
-            </div>
 
-            <div style="background: #fafafa; padding: 2rem; border-radius: 8px; margin: 2rem 0; border: 1px solid #e2e8f0;">
-                <h3 style="text-align: center; color: #0D0D38; margin-bottom: 1.5rem;">Proven Track Record</h3>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; text-align: center;">
-                    <div>
-                        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📊</div>
-                        <h4 style="color: #FF6B06;">Performance Report</h4>
-                        <p style="font-size: 0.8rem;">Performance tracking system for credit funds, public equities, peer groups and benchmarks, coordinating processes across 3 business teams to maintain updated market screening</p>
-                    </div>
-                    <div>
-                        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔄</div>
-                        <h4 style="color: #46E8E0;">BI Ecosystem</h4>
-                        <p style="font-size: 0.8rem;">Built ecosystem around daily processes that enrich data, data quality systems and technology that enabled credit fund reports to shift from monthly to daily frequency</p>
-                    </div>
-                    <div>
-                        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔍</div>
-                        <h4 style="color: #2044DC;">Ad-hoc Analysis</h4>
-                        <p style="font-size: 0.8rem;">Trusted reputation for comprehensive, reliable analysis for commercial presentations, media publications, and strategic decisions</p>
+                <div class="track-record">
+                    <h3>Proven Track Record</h3>
+                    <div class="track-grid">
+                        <div class="track-item">
+                            <div class="track-item-icon" style="color: var(--color-accent);"><i class="fas fa-file-alt"></i></div>
+                            <h4>Performance Report</h4>
+                            <p>Performance tracking system for credit funds, public equities, peer groups and benchmarks, coordinating processes across 3 business teams to maintain updated market screening</p>
+                        </div>
+                        <div class="track-item">
+                            <div class="track-item-icon" style="color: var(--color-success);"><i class="fas fa-sync-alt"></i></div>
+                            <h4>BI Ecosystem</h4>
+                            <p>Built ecosystem around daily processes that enrich data, data quality systems and technology that enabled credit fund reports to shift from monthly to daily frequency</p>
+                        </div>
+                        <div class="track-item">
+                            <div class="track-item-icon" style="color: var(--color-secondary);"><i class="fas fa-search"></i></div>
+                            <h4>Ad-hoc Analysis</h4>
+                            <p>Trusted reputation for comprehensive, reliable analysis for commercial presentations, media publications, and strategic decisions</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -850,53 +2303,50 @@
             </div>
         </div>
 
-        <!-- SLIDE 5: Team Evolution (NEW) -->
+        <!-- SLIDE 5: Team Evolution -->
         <div class="slide">
-            <h2>Transform the Team to Transform the Business</h2>
+            <div class="slide-content">
+                <h1>Transform the Team to Transform the Business</h1>
 
-            <div style="background: #fafafa; padding: 2rem; border-radius: 8px; margin: 2rem 0; border: 1px solid #e2e8f0;">
-                <h3 style="text-align: center; color: #0D0D38; margin-bottom: 2rem;">The Evolution That Guarantees Success</h3>
-                
-                <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
-                    <div style="background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
-                        <h4 style="color: #718096; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem;">TODAY</h4>
-                        <div style="font-size: 3rem; font-weight: 200; color: #F8485E; margin: 0.5rem 0;">4</div>
-                        <p style="font-weight: 600; margin-bottom: 0.5rem;">BI Team</p>
-                        <ul style="list-style: none; padding: 0; text-align: left; font-size: 0.85rem;">
-                            <li style="color: #718096;">• Reactive support</li>
-                            <li style="color: #718096;">• Manual processes</li>
-                            <li style="color: #718096;">• Report generation</li>
-                        </ul>
-                    </div>
+                <div class="evolution-container">
+                    <h3>The Evolution That Guarantees Success</h3>
                     
-                    <div style="font-size: 2rem; color: #FF6B06;">→</div>
-                    
-                    <div style="background: #f0fdfa; padding: 1.5rem; border-radius: 8px; border: 1px solid #46E8E0; text-align: center;">
-                        <h4 style="color: #46E8E0; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; margin-bottom: 1rem;">2026</h4>
-                        <div style="font-size: 3rem; font-weight: 200; color: #46E8E0; margin: 0.5rem 0;">7</div>
-                        <p style="font-weight: 600; margin-bottom: 0.5rem;">Strategic Data Team</p>
-                        <ul style="list-style: none; padding: 0; text-align: left; font-size: 0.85rem;">
-                            <li style="color: #2044DC;">• Data governance owners</li>
-                            <li style="color: #2044DC;">• Alpha generation partners</li>
-                            <li style="color: #2044DC;">• Strategic advisors</li>
-                        </ul>
+                    <div class="evolution-flow">
+                        <div class="evolution-box today-box">
+                            <h4 class="evolution-label">TODAY</h4>
+                            <div class="evolution-number" style="color: var(--color-danger);">4</div>
+                            <p class="evolution-title">BI Team</p>
+                            <p class="evolution-list" style="color: var(--color-neutral);">• Reactive support<br>• Manual processes<br>• Report generation</p>
+                        </div>
+                        
+                        <div class="evolution-arrow"><i class="fas fa-arrow-right"></i></div>
+                        
+                        <div class="evolution-box future-box">
+                            <h4 class="evolution-label" style="color: var(--color-success);">2026</h4>
+                            <div class="evolution-number" style="color: var(--color-success);">7</div>
+                            <p class="evolution-title">Strategic Data Team</p>
+                            <p class="evolution-list" style="color: var(--color-secondary);">• Data governance owners<br>• Alpha generation partners<br>• Strategic advisors</p>
+                        </div>
                     </div>
-                </div>
 
-                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
-                    <h4 style="text-align: center; color: #0D0D38; margin-bottom: 1.5rem;">New Roles = New Capabilities</h4>
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
-                        <div>
-                            <h5 style="color: #2044DC;">Data Engineer</h5>
-                            <p style="font-size: 0.8rem; color: #4a5568;">Business architecture designer</p>
-                        </div>
-                        <div>
-                            <h5 style="color: #2044DC;">Data Scientist (Math)</h5>
-                            <p style="font-size: 0.8rem; color: #4a5568;">Predictive model creator</p>
-                        </div>
-                        <div>
-                            <h5 style="color: #2044DC;">Data Scientist (CS)</h5>
-                            <p style="font-size: 0.8rem; color: #4a5568;">AI solution implementer</p>
+                    <div class="roles-section">
+                        <h4>New Roles = New Capabilities</h4>
+                        <div class="roles-grid">
+                            <div>
+                                <i class="fas fa-database" style="font-size: 32px; color: var(--color-secondary); margin-bottom: 10px;"></i>
+                                <h5>Data Engineer</h5>
+                                <p>Business architecture designer</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-calculator" style="font-size: 32px; color: var(--color-accent); margin-bottom: 10px;"></i>
+                                <h5>Data Scientist (Math)</h5>
+                                <p>Predictive model creator</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-code" style="font-size: 32px; color: var(--color-success); margin-bottom: 10px;"></i>
+                                <h5>Data Scientist (CS)</h5>
+                                <p>AI solution implementer</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -907,229 +2357,268 @@
             </div>
         </div>
 
-        <!-- SLIDE 6: The Transformation -->
+        <!-- SLIDE 6: The Transformation - COMPLETAMENTE REDISEÑADA -->
         <div class="slide">
-            <h2>From Manual Reporting to Strategic Alpha Generation</h2>
+            <div class="slide-content">
+                <h1>From Manual Reporting to Strategic Alpha Generation</h1>
 
-            <div style="background: #f0f7ff; padding: 1.2rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
-                <p style="color: #0D0D38; font-size: 1rem; font-weight: 600; margin: 0;">
-                    2026 marks the beginning of our transformation journey.<br>
-                    <span style="font-weight: 400; font-size: 0.9rem;">This project is the foundation for a multi-year evolution.</span>
-                </p>
-            </div>
+                <!-- Timeline visual impactante -->
+                <div class="journey-container">
+                    <div class="journey-header">
+                        <div class="year-badge">2026</div>
+                        <div class="journey-title">
+                            <h3>The Transformation Journey Begins</h3>
+                            <p>Building the foundation for a multi-year evolution to industry leadership</p>
+                        </div>
+                    </div>
 
-            <div class="transformation-flow">
-                <div class="transformation-stage current-state">
-                    <div class="stage-icon">📊</div>
-                    <h3>Today: Reactive BI</h3>
-                    <p style="font-size: 0.85rem;"><em>"What happened?"</em></p>
-                    <p style="font-size: 0.85rem;">70% operational<br>30% value</p>
+                    <div class="transformation-timeline">
+                        <div class="timeline-track"></div>
+                        
+                        <div class="timeline-node active">
+                            <div class="node-year">TODAY</div>
+                            <div class="node-content">
+                                <div class="node-icon" style="background: #F7FAFC;">
+                                    <i class="fas fa-chart-bar" style="color: var(--color-neutral);"></i>
+                                </div>
+                                <h4>Reactive BI</h4>
+                                <p>"What happened?"</p>
+                                <div class="ratio-badge bad">70/30</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-node highlighted">
+                            <div class="node-year">2026</div>
+                            <div class="node-content">
+                                <div class="node-icon" style="background: linear-gradient(135deg, #FFF7ED 0%, #FED7AA 100%);">
+                                    <i class="fas fa-rocket" style="color: var(--color-accent);"></i>
+                                </div>
+                                <h4>Foundation Phase</h4>
+                                <p>"Building capabilities"</p>
+                                <div class="ratio-badge progress">50/50</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-node future">
+                            <div class="node-year">2027</div>
+                            <div class="node-content">
+                                <div class="node-icon" style="background: linear-gradient(135deg, #E6FFFA 0%, #B2F5EA 100%);">
+                                    <i class="fas fa-chart-line" style="color: var(--color-success);"></i>
+                                </div>
+                                <h4>Acceleration</h4>
+                                <p>"Scaling impact"</p>
+                                <div class="ratio-badge better">40/60</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-node future">
+                            <div class="node-year">2028+</div>
+                            <div class="node-content">
+                                <div class="node-icon" style="background: linear-gradient(135deg, #EEF2FF 0%, #C7D2FE 100%);">
+                                    <i class="fas fa-brain" style="color: var(--color-secondary);"></i>
+                                </div>
+                                <h4>Strategic Intelligence</h4>
+                                <p>"Creating alpha"</p>
+                                <div class="ratio-badge optimal">30/70</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="transformation-arrow">→</div>
-                
-                <div class="transformation-stage" style="background: #fff7ed; border-color: #FF6B06;">
-                    <div class="stage-icon" style="color: #FF6B06;">🚀</div>
-                    <h3>2026: Foundation</h3>
-                    <p style="font-size: 0.85rem;"><em>"Building the base"</em></p>
-                    <p style="font-size: 0.85rem;">New team & tools</p>
-                </div>
-                
-                <div class="transformation-arrow">→</div>
-                
-                <div class="transformation-stage future-state">
-                    <div class="stage-icon">🎯</div>
-                    <h3>Future: Strategic Intelligence</h3>
-                    <p style="font-size: 0.85rem;"><em>"Where's the opportunity?"</em></p>
-                    <p style="font-size: 0.85rem;">30% operational<br>70% alpha</p>
-                </div>
-            </div>
 
-            <div class="capabilities-grid">
-                <div class="capability">
-                    <div class="capability-icon">🤖</div>
-                    <h4>AI-Powered Insights</h4>
-                    <p>Predictive models for investment opportunities</p>
-                </div>
-                <div class="capability">
-                    <div class="capability-icon">⚡</div>
-                    <h4>Real-Time Analytics</h4>
-                    <p>From monthly to daily reporting</p>
-                </div>
-                <div class="capability">
-                    <div class="capability-icon">🔄</div>
-                    <h4>Intelligent Automation</h4>
-                    <p>Free talent for strategic analysis</p>
-                </div>
-                <div class="capability">
-                    <div class="capability-icon">💡</div>
-                    <h4>Proactive Recommendations</h4>
-                    <p>Alpha generation before opportunities emerge</p>
+                <div class="capabilities-grid">
+                    <div class="capability">
+                        <div class="capability-icon"><i class="fas fa-robot"></i></div>
+                        <h4>AI-Powered Insights</h4>
+                        <p>Predictive models for investment opportunities</p>
+                    </div>
+                    <div class="capability">
+                        <div class="capability-icon"><i class="fas fa-bolt"></i></div>
+                        <h4>Real-Time Analytics</h4>
+                        <p>From monthly to daily reporting</p>
+                    </div>
+                    <div class="capability">
+                        <div class="capability-icon"><i class="fas fa-sync"></i></div>
+                        <h4>Intelligent Automation</h4>
+                        <p>Free talent for strategic analysis</p>
+                    </div>
+                    <div class="capability">
+                        <div class="capability-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h4>Proactive Recommendations</h4>
+                        <p>Alpha generation before opportunities emerge</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 7: Investment Breakdown -->
         <div class="slide">
-            <h2>Strategic Investment Allocation</h2>
-            
-            <div class="roi-highlight">
-                <div class="roi-number">$300,000</div>
-                <div class="roi-description">Transformational investment for 2026</div>
-            </div>
-
-            <div class="impact-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
-                <div class="impact-section" style="border-left-color: #2044DC;">
-                    <div style="text-align: center; margin-bottom: 1.2rem;">
-                        <div style="font-size: 2rem; color: #2044DC;">👥</div>
-                        <h3 style="color: #0D0D38; margin-bottom: 0.5rem;">New Specialized Profiles</h3>
-                        <div style="font-size: 1.8rem; color: #FF6B06; font-weight: 200;">$150k</div>
-                    </div>
-                    <p style="font-weight: 600; margin-bottom: 0.8rem;">Interdisciplinary team:</p>
-                    <ul class="impact-list">
-                        <li><strong>Data Engineer</strong><br>Business data architecture</li>
-                        <li><strong>Data Scientist - Mathematics</strong><br>Advanced modeling and algorithms</li>
-                        <li><strong>Data Scientist - Computer Science</strong><br>Implementation and integration</li>
-                    </ul>
+            <div class="slide-content">
+                <h1>Strategic Investment Allocation</h1>
+                
+                <div class="roi-highlight">
+                    <div class="roi-number">$300,000</div>
+                    <div class="roi-description">Transformational investment for 2026</div>
                 </div>
 
-                <div class="impact-section" style="border-left-color: #46E8E0;">
-                    <div style="text-align: center; margin-bottom: 1.2rem;">
-                        <div style="font-size: 2rem; color: #46E8E0;">🎓</div>
-                        <h3 style="color: #0D0D38; margin-bottom: 0.5rem;">Senior Team Training</h3>
-                        <div style="font-size: 1.8rem; color: #FF6B06; font-weight: 200;">$50k</div>
+                <div class="investment-grid">
+                    <div class="investment-section" style="border-left-color: var(--color-secondary);">
+                        <div class="investment-header">
+                            <div class="investment-icon" style="color: var(--color-secondary);"><i class="fas fa-user-plus"></i></div>
+                            <h3>New Specialized Profiles</h3>
+                            <div class="investment-amount">$150k</div>
+                        </div>
+                        <p class="investment-subtitle">Interdisciplinary team:</p>
+                        <ul class="investment-list">
+                            <li><strong>Data Engineer</strong><br>Business data architecture</li>
+                            <li><strong>Data Scientist - Mathematics</strong><br>Advanced modeling and algorithms</li>
+                            <li><strong>Data Scientist - Computer Science</strong><br>Implementation and integration</li>
+                        </ul>
                     </div>
-                    <p style="font-weight: 600; margin-bottom: 0.8rem;">Upskilling existing expertise:</p>
-                    <ul class="impact-list">
-                        <li>Masters in AI/Data Science</li>
-                        <li>Advanced BI certifications</li>
-                        <li>AI adoption strategy</li>
-                    </ul>
-                </div>
 
-                <div class="impact-section" style="border-left-color: #FF6B06;">
-                    <div style="text-align: center; margin-bottom: 1.2rem;">
-                        <div style="font-size: 2rem; color: #FF6B06;">🛠️</div>
-                        <h3 style="color: #0D0D38; margin-bottom: 0.5rem;">Tools & Infrastructure</h3>
-                        <div style="font-size: 1.8rem; color: #FF6B06; font-weight: 200;">$100k</div>
+                    <div class="investment-section" style="border-left-color: var(--color-success);">
+                        <div class="investment-header">
+                            <div class="investment-icon" style="color: var(--color-success);"><i class="fas fa-graduation-cap"></i></div>
+                            <h3>Senior Team Training</h3>
+                            <div class="investment-amount">$50k</div>
+                        </div>
+                        <p class="investment-subtitle">Upskilling existing expertise:</p>
+                        <ul class="investment-list">
+                            <li>Masters in AI/Data Science</li>
+                            <li>Advanced BI certifications</li>
+                            <li>AI adoption strategy</li>
+                        </ul>
                     </div>
-                    <p style="font-weight: 600; margin-bottom: 0.8rem;">Technology foundation:</p>
-                    <ul class="impact-list">
-                        <li>Web portal "DataQuery"</li>
-                        <li>AI analyst assistant</li>
-                        <li>Cloud services (Vertex AI, BigQuery)</li>
-                        <li>External data integrations</li>
-                    </ul>
+
+                    <div class="investment-section" style="border-left-color: var(--color-accent);">
+                        <div class="investment-header">
+                            <div class="investment-icon" style="color: var(--color-accent);"><i class="fas fa-tools"></i></div>
+                            <h3>Tools & Infrastructure</h3>
+                            <div class="investment-amount">$100k</div>
+                        </div>
+                        <p class="investment-subtitle">Technology foundation:</p>
+                        <ul class="investment-list">
+                            <li>Web portal "DataQuery"</li>
+                            <li>AI analyst assistant</li>
+                            <li>Cloud services (Vertex AI, BigQuery)</li>
+                            <li>External data integrations</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 8: 2026 Deliverables -->
         <div class="slide">
-            <h2>2026: The Transformation Begins</h2>
+            <div class="slide-content">
+                <h1>2026: The Transformation Begins</h1>
 
-            <div class="impact-grid">
-                <div class="impact-section portfolio-impact">
-                    <h3>🎯 Immediate Deliverables</h3>
-                    <ul class="impact-list">
-                        <li>Centralized web portal for all investment data</li>
-                        <li>Daily automated reports (from weekly/monthly)</li>
-                        <li>Self-service analytics for portfolio managers</li>
-                        <li>Curated databases with external data</li>
-                        <li>Data governance framework</li>
-                    </ul>
+                <div class="deliverables-grid">
+                    <div class="deliverable-section portfolio-impact">
+                        <h3><i class="fas fa-bullseye"></i> Immediate Deliverables</h3>
+                        <ul class="impact-list">
+                            <li>Centralized web portal for all investment data</li>
+                            <li>Daily automated reports (from weekly/monthly)</li>
+                            <li>Self-service analytics for portfolio managers</li>
+                            <li>Curated databases with external data</li>
+                            <li>Data governance framework</li>
+                        </ul>
+                    </div>
+
+                    <div class="deliverable-section business-impact">
+                        <h3><i class="fas fa-rocket"></i> Strategic Impact</h3>
+                        <ul class="impact-list">
+                            <li>60% reduction in operational processing time</li>
+                            <li>Portfolio managers making data-driven decisions daily</li>
+                            <li>Foundation for AI-powered recommendations</li>
+                            <li>Scalable model for all Patria verticals globally</li>
+                            <li>Competitive advantage through proprietary insights</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="impact-section business-impact">
-                    <h3>🚀 Strategic Impact</h3>
-                    <ul class="impact-list">
-                        <li>60% reduction in operational processing time</li>
-                        <li>Portfolio managers making data-driven decisions daily</li>
-                        <li>Foundation for AI-powered recommendations</li>
-                        <li>Scalable model for all Patria verticals globally</li>
-                        <li>Competitive advantage through proprietary insights</li>
-                    </ul>
+                <div class="timeline">
+                    <div class="milestone">
+                        <div class="milestone-phase">Q1 2026</div>
+                        <div class="milestone-description">Team setup & quick wins in daily reporting</div>
+                    </div>
+                    <div class="milestone">
+                        <div class="milestone-phase">Q2 2026</div>
+                        <div class="milestone-description">Web portal launch & database integration</div>
+                    </div>
+                    <div class="milestone">
+                        <div class="milestone-phase">Q3 2026</div>
+                        <div class="milestone-description">Pilot with portfolio teams & refinement</div>
+                    </div>
+                    <div class="milestone">
+                        <div class="milestone-phase">Q4 2026</div>
+                        <div class="milestone-description">Full production & AI analyst deployment</div>
+                    </div>
                 </div>
+
+                <p class="disclaimer">
+                    * Stated objectives assume approved infrastructure conditions and technology permissions from IT,<br>
+                    as well as project approval to recruit talent available by early Q1 2026
+                </p>
             </div>
 
-            <div class="timeline">
-                <div class="milestone">
-                    <div class="milestone-phase">Q1 2026</div>
-                    <div class="milestone-description">Team setup & quick wins in daily reporting</div>
-                </div>
-                <div class="milestone">
-                    <div class="milestone-phase">Q2 2026</div>
-                    <div class="milestone-description">Web portal launch & database integration</div>
-                </div>
-                <div class="milestone">
-                    <div class="milestone-phase">Q3 2026</div>
-                    <div class="milestone-description">Pilot with portfolio teams & refinement</div>
-                </div>
-                <div class="milestone">
-                    <div class="milestone-phase">Q4 2026</div>
-                    <div class="milestone-description">Full production & AI analyst deployment</div>
-                </div>
-            </div>
-
-            <p style="text-align: center; color: #718096; font-size: 0.75rem; margin-top: 1rem; font-style: italic;">
-                * Stated objectives assume approved infrastructure conditions and technology permissions from IT,<br>
-                as well as project approval to recruit talent available by early Q1 2026
-            </p>
-
-            <div class="cta-section" style="margin-top: auto;">
-                <h2>Building foundations for long-term value creation.<br>
-                Returns will compound over multiple years as transformation matures.</h2>
+            <div class="cta-section">
+                <h2>Building foundations for long-term value creation. Returns will compound over multiple years.</h2>
             </div>
         </div>
 
-        <!-- SLIDE 9: The Decision -->
+        <!-- SLIDE 9: The Decision - CON CTA UNIFICADO -->
         <div class="slide">
-            <h2>From Moneda Patria to Global Patria</h2>
+            <div class="slide-content">
+                <h1>From Moneda Patria to Global Patria</h1>
 
-            <div style="display: flex; justify-content: space-around; align-items: center; margin: 2rem 0;">
-                <div style="text-align: center;">
-                    <div style="font-size: 2.5rem; color: #2044DC; font-weight: 200;">2</div>
-                    <div style="font-weight: 600;">Current Verticals</div>
-                    <p style="color: #4a5568; font-size: 0.9rem;">Credit & Public Equities</p>
+                <div class="scale-visual">
+                    <div class="scale-box">
+                        <div class="scale-number" style="color: var(--color-secondary);">2</div>
+                        <div class="scale-label">Current Verticals</div>
+                        <p class="scale-desc">Credit & Public Equities</p>
+                    </div>
+                    <div class="scale-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="scale-box">
+                        <div class="scale-number" style="color: var(--color-success);">6+</div>
+                        <div class="scale-label">Patria Global Verticals</div>
+                        <p class="scale-desc">Real Estate, Private Equity, Infrastructure...</p>
+                    </div>
                 </div>
-                <div style="font-size: 1.8rem; color: #FF6B06;">→</div>
-                <div style="text-align: center;">
-                    <div style="font-size: 2.5rem; color: #46E8E0; font-weight: 200;">6+</div>
-                    <div style="font-weight: 600;">Patria Global Verticals</div>
-                    <p style="color: #4a5568; font-size: 0.9rem;">Real Estate, Private Equity, Infrastructure...</p>
+
+                <div class="decision-options">
+                    <div class="option invest-option">
+                        <div class="option-icon"><i class="fas fa-check-circle"></i></div>
+                        <h4>Invest Now</h4>
+                        <p>
+                            <i class="fas fa-building" style="color: var(--color-secondary); font-size: 20px;"></i> Build proprietary capability<br>
+                            <i class="fas fa-chart-line" style="color: var(--color-secondary); font-size: 20px;"></i> Generate alpha internally<br>
+                            <i class="fas fa-globe" style="color: var(--color-secondary); font-size: 20px;"></i> Scale across Patria globally<br>
+                            <strong><i class="fas fa-coins" style="color: var(--color-success); font-size: 22px;"></i> ROI: <i class="fas fa-trending-up" style="color: var(--color-success); font-size: 22px;"></i> Compounds over years</strong>
+                        </p>
+                    </div>
+                    <div class="option wait-option">
+                        <div class="option-icon"><i class="fas fa-exclamation-circle"></i></div>
+                        <h4>Delay Decision</h4>
+                        <p>
+                            <i class="fas fa-user-slash" style="color: var(--color-danger); font-size: 20px;"></i> Continue losing talent<br>
+                            <i class="fas fa-money-bill-wave" style="color: var(--color-danger); font-size: 20px;"></i> Pay for external platforms<br>
+                            <i class="fas fa-arrow-down" style="color: var(--color-danger); font-size: 20px;"></i> Fall behind competitors<br>
+                            <strong><i class="fas fa-dollar-sign" style="color: var(--color-danger); font-size: 22px;"></i> Cost: <i class="fas fa-chart-line-down" style="color: var(--color-danger); font-size: 22px;"></i> Growing daily</strong>
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <div class="decision-options">
-                <div class="option invest-option">
-                    <div class="option-icon">✔</div>
-                    <h4>Invest Now</h4>
-                    <p>Build proprietary capability<br>
-                    Generate alpha internally<br>
-                    Scale across Patria globally<br>
-                    <strong>ROI: Compounds over years</strong></p>
-                </div>
-                <div class="option wait-option">
-                    <div class="option-icon">⚠</div>
-                    <h4>Delay Decision</h4>
-                    <p>Continue losing talent<br>
-                    Pay for external platforms<br>
-                    Fall behind competitors<br>
-                    <strong>Cost: Growing daily</strong></p>
-                </div>
-            </div>
-
-            <div class="final-statement">
-                <h3>We are not IT. We are not consultants.<br>
+            <div class="cta-section">
+                <h2>We are not IT. We are not consultants.<br>
                 We are the business team that turns technology into alpha.<br>
-                <br>
-                The transformation starts in 2026.<br>
-                The decision must be made today.</h3>
+                The transformation starts in 2026.</h2>
             </div>
         </div>
+
     </div>
 
-    <!-- Navigation -->
+    <!-- NAVEGACIÓN -->
     <div class="navigation">
         <div class="slide-indicators">
             <button class="indicator active" data-slide="0"></button>
@@ -1144,179 +2633,271 @@
         </div>
         
         <div class="nav-controls">
-            <button class="nav-btn" id="prevBtn">← Previous</button>
-            <button class="nav-btn" id="nextBtn">Next →</button>
-            <button class="nav-btn hidden" id="fullscreenBtn">⛶</button>
+            <button class="nav-btn" id="prevBtn"><i class="fas fa-arrow-left"></i> Previous</button>
+            <button class="nav-btn" id="nextBtn">Next <i class="fas fa-arrow-right"></i></button>
+            <button class="nav-btn" id="fullscreenBtn"><i class="fas fa-expand"></i> Fullscreen</button>
         </div>
     </div>
 
     <script>
-        (function() {
-            'use strict';
-            
-            var currentSlide = 0;
-            var totalSlides = 9;
-            
-            var slides = document.querySelectorAll('.slide');
-            var indicators = document.querySelectorAll('.indicator');
-            var prevBtn = document.getElementById('prevBtn');
-            var nextBtn = document.getElementById('nextBtn');
-            var fullscreenBtn = document.getElementById('fullscreenBtn');
-
-            var fullscreenEnabled = document.fullscreenEnabled || 
-                                   document.webkitFullscreenEnabled || 
-                                   document.mozFullScreenEnabled ||
-                                   document.msFullscreenEnabled;
-            
-            if (fullscreenEnabled && !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                if (fullscreenBtn) {
-                    fullscreenBtn.classList.remove('hidden');
-                }
-            }
-
-            function showSlide(n) {
-                if (n < 0) n = totalSlides - 1;
-                if (n >= totalSlides) n = 0;
+        class PresentationEngine {
+            constructor() {
+                this.baseWidth = 1920;
+                this.baseHeight = 1080;
+                this.currentSlide = 0;
+                this.slides = document.querySelectorAll('.slide');
+                this.indicators = document.querySelectorAll('.indicator');
+                this.totalSlides = this.slides.length;
+                this.container = document.getElementById('presentationContainer');
+                this.isTransitioning = false;
                 
-                currentSlide = n;
+                this.init();
+            }
+
+            init() {
+                // Configurar eventos de botones
+                document.getElementById('prevBtn').addEventListener('click', () => this.prevSlide());
+                document.getElementById('nextBtn').addEventListener('click', () => this.nextSlide());
+                document.getElementById('fullscreenBtn').addEventListener('click', () => this.toggleFullscreen());
                 
-                for (var i = 0; i < slides.length; i++) {
-                    slides[i].classList.remove('active', 'prev');
-                    if (i < n) {
-                        slides[i].classList.add('prev');
-                    } else if (i === n) {
-                        slides[i].classList.add('active');
-                        slides[i].scrollTop = 0;
-                    }
-                }
+                // Configurar indicadores
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
                 
-                for (var j = 0; j < indicators.length; j++) {
-                    if (j === n) {
-                        indicators[j].classList.add('active');
-                    } else {
-                        indicators[j].classList.remove('active');
-                    }
-                }
-            }
-
-            function nextSlide() {
-                showSlide(currentSlide + 1);
-            }
-
-            function prevSlide() {
-                showSlide(currentSlide - 1);
-            }
-
-            function goToSlide(n) {
-                showSlide(n);
-            }
-
-            function toggleFullscreen() {
-                if (!fullscreenEnabled) return;
+                // Teclado
+                document.addEventListener('keydown', (e) => this.handleKeyboard(e));
                 
-                var elem = document.documentElement;
-                var isFullscreen = document.fullscreenElement || 
-                                 document.webkitFullscreenElement || 
-                                 document.mozFullScreenElement ||
-                                 document.msFullscreenElement;
+                // Touch/swipe support
+                let touchStartX = 0;
+                let touchStartY = 0;
                 
-                if (!isFullscreen) {
-                    if (elem.requestFullscreen) {
-                        elem.requestFullscreen().catch(function() {});
-                    } else if (elem.webkitRequestFullscreen) {
-                        elem.webkitRequestFullscreen();
-                    } else if (elem.mozRequestFullScreen) {
-                        elem.mozRequestFullScreen();
-                    } else if (elem.msRequestFullscreen) {
-                        elem.msRequestFullscreen();
-                    }
-                } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen().catch(function() {});
-                    } else if (document.webkitExitFullscreen) {
-                        document.webkitExitFullscreen();
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen();
-                    } else if (document.msExitFullscreen) {
-                        document.msExitFullscreen();
-                    }
-                }
-            }
-
-            if (prevBtn) {
-                prevBtn.addEventListener('click', prevSlide);
-            }
-            
-            if (nextBtn) {
-                nextBtn.addEventListener('click', nextSlide);
-            }
-            
-            if (fullscreenBtn && fullscreenEnabled) {
-                fullscreenBtn.addEventListener('click', toggleFullscreen);
-            }
-
-            for (var k = 0; k < indicators.length; k++) {
-                (function(index) {
-                    indicators[index].addEventListener('click', function() {
-                        goToSlide(index);
-                    });
-                })(k);
-            }
-
-            // Touch/swipe support
-            var touchStartX = 0;
-            var touchStartY = 0;
-            var minSwipeDistance = 50;
-
-            document.addEventListener('touchstart', function(e) {
-                if (e.touches && e.touches[0]) {
+                this.container.addEventListener('touchstart', (e) => {
                     touchStartX = e.touches[0].clientX;
                     touchStartY = e.touches[0].clientY;
-                }
-            });
-
-            document.addEventListener('touchend', function(e) {
-                if (!touchStartX || !e.changedTouches || !e.changedTouches[0]) return;
+                });
                 
-                var touchEndX = e.changedTouches[0].clientX;
-                var touchEndY = e.changedTouches[0].clientY;
-                var deltaX = touchStartX - touchEndX;
-                var deltaY = Math.abs(touchStartY - touchEndY);
-                
-                if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > deltaY) {
-                    if (deltaX > 0) {
-                        nextSlide();
-                    } else {
-                        prevSlide();
+                this.container.addEventListener('touchend', (e) => {
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const deltaX = touchStartX - touchEndX;
+                    const deltaY = Math.abs(touchStartY - touchEndY);
+                    
+                    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > deltaY) {
+                        if (deltaX > 0) {
+                            this.nextSlide();
+                        } else {
+                            this.prevSlide();
+                        }
                     }
-                }
+                });
                 
-                touchStartX = 0;
-                touchStartY = 0;
-            });
+                // Resize
+                window.addEventListener('resize', () => this.scaleToFit());
+                document.addEventListener('fullscreenchange', () => this.handleFullscreenChange());
+                document.addEventListener('webkitfullscreenchange', () => this.handleFullscreenChange());
+                
+                // Escalar inicialmente
+                this.scaleToFit();
+                this.slides[0].classList.add('active');
+                this.currentSlide = 0;
+                
+                // Iniciar animaciones
+                this.initAnimations();
+            }
 
-            // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    nextSlide();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    prevSlide();
-                } else if (e.key === 'Escape') {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    } else if (document.webkitExitFullscreen) {
-                        document.webkitExitFullscreen();
-                    }
-                } else if (e.key >= '1' && e.key <= '9') {
-                    e.preventDefault();
-                    goToSlide(parseInt(e.key) - 1);
+            initAnimations() {
+                // Animar números cuando el slide esté activo
+                this.animateNumbers();
+                
+                // Animar barras de progreso en Slide 2
+                setTimeout(() => {
+                    this.animateProgressBars();
+                }, 500);
+                
+                // Animar gráfico circular en Slide 3
+                this.animateCircularProgress();
+            }
+
+            animateNumbers() {
+                const animateValue = (element, start, end, duration) => {
+                    if (!element) return;
+                    
+                    const range = end - start;
+                    const increment = end > start ? 1 : -1;
+                    const stepTime = Math.abs(Math.floor(duration / range));
+                    let current = start;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        element.textContent = current + (element.dataset.suffix || '');
+                        if (current === end) {
+                            clearInterval(timer);
+                        }
+                    }, stepTime);
+                };
+                
+                // Animar números en slides activos
+                const activeSlide = this.slides[this.currentSlide];
+                activeSlide.querySelectorAll('[data-animate-number]').forEach(el => {
+                    const endValue = parseInt(el.dataset.animateNumber);
+                    animateValue(el, 0, endValue, 1000);
+                });
+            }
+
+            animateProgressBars() {
+                const activeSlide = this.slides[this.currentSlide];
+                if (!activeSlide) return;
+                
+                // Solo animar las barras si es el slide 2 (index 1)
+                if (this.currentSlide === 1) {
+                    activeSlide.querySelectorAll('.percentage-fill').forEach(bar => {
+                        // Forzar reset y luego animar
+                        bar.style.animation = 'none';
+                        bar.offsetHeight; // Trigger reflow
+                        bar.style.animation = null;
+                    });
                 }
-            });
+            }
 
-            showSlide(0);
-        })();
+            animateCircularProgress() {
+                const activeSlide = this.slides[this.currentSlide];
+                if (!activeSlide) return;
+                
+                const progressRing = activeSlide.querySelector('.progress-ring');
+                if (progressRing) {
+                    progressRing.style.strokeDashoffset = '628.3';
+                    setTimeout(() => {
+                        progressRing.style.strokeDashoffset = '188.5';
+                    }, 100);
+                }
+            }
+
+            scaleToFit() {
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                
+                const scaleX = viewportWidth / this.baseWidth;
+                const scaleY = viewportHeight / this.baseHeight;
+                
+                const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+                const scale = isFullscreen 
+                    ? Math.min(scaleX, scaleY)
+                    : Math.min(scaleX, scaleY) * 0.9;
+                
+                this.container.style.transform = `scale(${scale})`;
+            }
+
+            showSlide(index) {
+                if (this.isTransitioning) return;
+                if (index < 0 || index >= this.totalSlides) return;
+                if (index === this.currentSlide) return;
+                
+                this.isTransitioning = true;
+                
+                this.slides.forEach((slide, i) => {
+                    slide.classList.remove('active', 'prev');
+                    if (i < index) {
+                        slide.classList.add('prev');
+                    } else if (i === index) {
+                        slide.classList.add('active');
+                    }
+                });
+                
+                this.indicators.forEach((indicator, i) => {
+                    indicator.classList.remove('active');
+                    if (i === index) {
+                        indicator.classList.add('active');
+                    }
+                });
+                
+                this.currentSlide = index;
+                
+                // Reiniciar animaciones para el nuevo slide
+                setTimeout(() => {
+                    this.initAnimations();
+                }, 300);
+                
+                setTimeout(() => {
+                    this.isTransitioning = false;
+                }, 600);
+            }
+
+            goToSlide(index) {
+                this.showSlide(index);
+            }
+
+            nextSlide() {
+                const next = (this.currentSlide + 1) % this.totalSlides;
+                this.showSlide(next);
+            }
+
+            prevSlide() {
+                const prev = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.showSlide(prev);
+            }
+
+            handleKeyboard(e) {
+                switch(e.key) {
+                    case 'ArrowRight':
+                    case ' ':
+                        e.preventDefault();
+                        this.nextSlide();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        this.prevSlide();
+                        break;
+                    case 'Escape':
+                        if (document.fullscreenElement || document.webkitFullscreenElement) {
+                            this.exitFullscreen();
+                        }
+                        break;
+                    case 'f':
+                    case 'F':
+                        if (e.ctrlKey || e.metaKey) {
+                            e.preventDefault();
+                            this.toggleFullscreen();
+                        }
+                        break;
+                    default:
+                        if (e.key >= '1' && e.key <= '9') {
+                            const slideIndex = parseInt(e.key) - 1;
+                            if (slideIndex < this.totalSlides) {
+                                this.goToSlide(slideIndex);
+                            }
+                        }
+                        break;
+                }
+            }
+
+            toggleFullscreen() {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    const elem = document.documentElement;
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.webkitRequestFullscreen) {
+                        elem.webkitRequestFullscreen();
+                    }
+                } else {
+                    this.exitFullscreen();
+                }
+            }
+
+            exitFullscreen() {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+
+            handleFullscreenChange() {
+                setTimeout(() => this.scaleToFit(), 100);
+            }
+        }
+
+        const presentation = new PresentationEngine();
     </script>
 </body>
 </html>
