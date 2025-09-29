@@ -14,36 +14,36 @@
            SISTEMA DE DISEÑO - Variables Globales
            ============================================ */
         :root {
-            /* Canvas Base */
-            --canvas-width: 1920px;
-            --canvas-height: 1080px;
+            /* Canvas Base - REDUCIDO para mejor compatibilidad */
+            --canvas-width: 1280px;
+            --canvas-height: 720px;
             
             /* Control de ancho de columnas */
-            --grid-max-width: 1400px;
+            --grid-max-width: 1100px;
             
-            /* Espaciados - Sistema 8px estricto */
-            --space-xs: 8px;
-            --space-sm: 16px;
-            --space-md: 24px;
-            --space-lg: 32px;
-            --space-xl: 48px;
-            --space-xxl: 64px;
+            /* Espaciados - Reducidos */
+            --space-xs: 6px;
+            --space-sm: 12px;
+            --space-md: 18px;
+            --space-lg: 24px;
+            --space-xl: 36px;
+            --space-xxl: 48px;
             
-            /* Padding del Slide */
-            --slide-padding-y: 64px;
-            --slide-padding-x: 120px;
+            /* Padding del Slide - Más reducido */
+            --slide-padding-y: 32px;
+            --slide-padding-x: 48px;
             
-            /* Tipografía - Escala Modular 1.25 (Major Third) */
-            --font-h1: 56px;
-            --font-h2: 44px;
-            --font-h3: 36px;
-            --font-h4: 28px;
-            --font-h5: 22px;
-            --font-body: 18px;
-            --font-small: 16px;
-            --font-tiny: 14px;
+            /* Tipografía - Tamaños reducidos */
+            --font-h1: 42px;
+            --font-h2: 34px;
+            --font-h3: 28px;
+            --font-h4: 22px;
+            --font-h5: 18px;
+            --font-body: 15px;
+            --font-small: 13px;
+            --font-tiny: 11px;
             
-            /* Font Weights Consistentes */
+            /* Font Weights */
             --weight-light: 300;
             --weight-regular: 400;
             --weight-medium: 500;
@@ -54,7 +54,7 @@
             --line-height-normal: 1.5;
             --line-height-relaxed: 1.7;
             
-            /* Colores Principales - Refinados para Finanzas */
+            /* Colores */
             --color-primary: #0D0D38;
             --color-secondary: #1E3A8A;
             --color-accent: #EA580C;
@@ -63,17 +63,15 @@
             --color-neutral: #64748B;
             --color-light: #F8FAFC;
             --color-white: #ffffff;
-            
-            /* Colores Adicionales */
             --color-muted: #94A3B8;
             --color-border: #E2E8F0;
             --color-background: #F1F5F9;
             
-            /* Iconos - Más Consistentes */
-            --icon-large: 40px;
-            --icon-medium: 32px;
-            --icon-small: 24px;
-            --icon-tiny: 20px;
+            /* Iconos - Reducidos */
+            --icon-large: 32px;
+            --icon-medium: 24px;
+            --icon-small: 18px;
+            --icon-tiny: 16px;
             
             /* Bordes */
             --border-radius: 12px;
@@ -81,7 +79,7 @@
             --border-radius-large: 16px;
             --border-width: 2px;
             
-            /* Sombras Sutiles */
+            /* Sombras */
             --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
             --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
             --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
@@ -102,16 +100,20 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+        }
+        
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            zoom: 1 !important;
         }
 
         /* ============================================
@@ -123,10 +125,7 @@
             height: var(--canvas-height);
             background: var(--color-white);
             transform-origin: center center;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.15), 0 10px 30px rgba(0,0,0,0.08);
             overflow: hidden;
-            border-radius: 4px;
-            zoom: 1 !important;
         }
 
         /* ============================================
@@ -226,14 +225,6 @@
         /* ============================================
            COMPONENTES REUTILIZABLES
            ============================================ */
-        
-        /* SLIDE 1: Ajuste de espaciados y mejora visual */
-        .slide:first-child .slide-content {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
         .key-points {
             display: grid;
             grid-template-columns: 1.1fr 1fr 1.1fr;
@@ -257,9 +248,6 @@
             position: relative;
             transition: all var(--transition-base);
             cursor: pointer;
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
             box-shadow: var(--shadow-sm);
         }
 
@@ -293,25 +281,6 @@
             margin-bottom: var(--space-md);
             color: var(--color-accent);
             transition: transform var(--transition-base);
-            position: relative;
-        }
-
-        /* Animación de números en cards */
-        .point-number {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--color-danger);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: var(--weight-semibold);
-            font-size: var(--font-small);
-            box-shadow: var(--shadow-md);
         }
 
         .point:hover .point-icon {
@@ -338,18 +307,7 @@
             color: var(--color-neutral);
         }
 
-        /* Highlight de números en el texto */
-        .highlight-number {
-            color: var(--color-danger);
-            font-weight: var(--weight-semibold);
-        }
-
-        .highlight-percent {
-            color: var(--color-accent);
-            font-weight: var(--weight-semibold);
-        }
-
-        /* CTA Section - UNIFICADA Y CONSISTENTE */
+        /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             color: var(--color-white);
@@ -377,9 +335,7 @@
         }
 
         @keyframes shimmer {
-            100% {
-                left: 100%;
-            }
+            100% { left: 100%; }
         }
 
         .cta-section h2 {
@@ -395,7 +351,7 @@
             z-index: 1;
         }
 
-        /* Warning Box - Mejorada con mejor espaciado */
+        /* Warning Box */
         .warning-box {
             background: linear-gradient(135deg, #FFF5F5 0%, #FEF2F2 100%);
             border: 1px solid var(--color-danger);
@@ -469,25 +425,7 @@
             font-size: 20px;
         }
 
-        /* Note Box */
-        .note-box {
-            background: #f0f7ff;
-            padding: var(--space-md);
-            border-radius: var(--border-radius);
-            margin-top: var(--space-xl);
-            margin-bottom: var(--space-md);
-            text-align: center;
-            border: 2px solid var(--color-secondary);
-        }
-
-        .note-box p {
-            color: var(--color-primary);
-            font-size: var(--font-h3);
-            font-weight: 500;
-            margin: 0;
-        }
-
-        /* Beyond Box - Clase independiente para el mensaje de potencial */
+        /* Beyond Box */
         .beyond-box {
             background: #f0f7ff;
             padding: var(--space-md);
@@ -509,13 +447,7 @@
            COMPONENTES ESPECÍFICOS POR SLIDE
            ============================================ */
         
-        /* SLIDE 2: Productivity Revolution - MEJORADA CON DATA VIZ */
-        .slide:nth-child(2) .slide-content {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
+        /* SLIDE 2: Productivity Revolution */
         .productivity-grid {
             display: grid;
             grid-template-columns: 1.2fr 1.2fr 1fr;
@@ -537,9 +469,6 @@
             justify-content: space-between;
             transition: all var(--transition-base);
             cursor: pointer;
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
             box-shadow: var(--shadow-sm);
             position: relative;
         }
@@ -576,14 +505,12 @@
             font-size: var(--icon-medium);
             margin-bottom: var(--space-md);
             transition: transform var(--transition-base);
-            will-change: transform;
         }
 
         .productivity-card:hover .point-icon {
             transform: scale(1.05);
         }
 
-        /* Visualización de porcentajes con barras */
         .percentage-visual {
             position: relative;
             margin: var(--space-md) 0;
@@ -635,12 +562,11 @@
         }
 
         .percentage-large {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: var(--weight-light);
             margin: var(--space-xs) 0;
             line-height: 1;
             transition: color var(--transition-base);
-            will-change: color;
             letter-spacing: -0.02em;
         }
 
@@ -662,11 +588,11 @@
             margin-top: var(--space-xs);
         }
 
-        /* SLIDE 3: Nueva visualización de fallas - CORREGIDA Y ESCALADA */
+        /* SLIDE 3: Failure Visualization */
         .failure-visualization {
             display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: var(--space-xl);
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-lg);
             margin: var(--space-lg) 0;
             align-items: start;
             max-width: 100%;
@@ -675,12 +601,11 @@
         .failure-metric {
             text-align: center;
             padding-top: var(--space-md);
-          
         }
 
         .circular-progress {
-            width: 220px;
-            height: 220px;
+            width: 180px;
+            height: 180px;
             margin: 0 auto var(--space-md);
         }
 
@@ -689,25 +614,14 @@
         }
 
         @keyframes drawCircle {
-            from {
-                stroke-dashoffset: 628.3;
-            }
-            to {
-                stroke-dashoffset: 188.5;
-            }
+            from { stroke-dashoffset: 628.3; }
+            to { stroke-dashoffset: 188.5; }
         }
 
         .percentage-text {
-            font-size: 56px;
+            font-size: 46px;
             font-weight: var(--weight-light);
             fill: var(--color-danger);
-        }
-
-        .percentage-label {
-            font-size: 14px;
-            font-weight: var(--weight-semibold);
-            fill: var(--color-neutral);
-            letter-spacing: 0.08em;
         }
 
         .failure-subtitle {
@@ -730,8 +644,8 @@
 
         .disconnect-diagram {
             display: grid;
-            grid-template-columns: 380px 100px 380px;
-            gap: var(--space-md);
+            grid-template-columns: 300px 80px 300px;
+            gap: var(--space-sm);
             align-items: center;
             justify-content: center;
         }
@@ -786,7 +700,7 @@
 
         .metric-item {
             display: grid;
-            grid-template-columns: 28px 85px 1fr;
+            grid-template-columns: 24px 70px 1fr;
             gap: var(--space-xs);
             align-items: center;
             padding: var(--space-xs);
@@ -860,7 +774,6 @@
             margin-top: var(--space-xs);
         }
 
-        /* Solución mejorada con pilares */
         .solution-showcase {
             background: linear-gradient(135deg, #F0FDFA 0%, #E6FFFA 100%);
             padding: var(--space-lg);
@@ -948,7 +861,7 @@
             margin: 0;
         }
 
-        /* SLIDE 4: Team Metrics - Refinadas */
+        /* SLIDE 4: Team Metrics */
         .team-metrics {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -970,9 +883,6 @@
             transition: all var(--transition-base);
             cursor: pointer;
             overflow: hidden;
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
             box-shadow: var(--shadow-sm);
         }
 
@@ -1003,7 +913,6 @@
             font-size: var(--icon-medium);
             margin-bottom: var(--space-sm);
             transition: transform var(--transition-base);
-            will-change: transform;
         }
 
         .metric-card:hover .metric-icon {
@@ -1011,12 +920,11 @@
         }
 
         .metric-number {
-            font-size: 52px;
+            font-size: 42px;
             font-weight: var(--weight-light);
             color: var(--color-accent);
             line-height: 1;
             transition: color var(--transition-base);
-            will-change: color;
             letter-spacing: -0.02em;
         }
 
@@ -1178,7 +1086,7 @@
             font-size: var(--font-small);
         }
 
-        /* SLIDE 6: Journey Timeline - Nuevo diseño impactante */
+        /* SLIDE 6: Journey Timeline */
         .journey-container {
             background: linear-gradient(135deg, var(--color-light) 0%, var(--color-white) 100%);
             padding: var(--space-lg);
@@ -1196,15 +1104,15 @@
         }
 
         .year-badge {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, var(--color-accent) 0%, #DC2626 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: var(--font-h4);
+            font-size: var(--font-h5);
             font-weight: var(--weight-semibold);
             box-shadow: var(--shadow-lg);
             position: relative;
@@ -1385,9 +1293,6 @@
             border: 1px solid var(--color-border);
             transition: all var(--transition-base);
             cursor: pointer;
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
             box-shadow: var(--shadow-sm);
         }
 
@@ -1403,7 +1308,6 @@
             color: var(--color-success);
             margin-bottom: var(--space-sm);
             transition: transform var(--transition-base);
-            will-change: transform;
         }
 
         .capability:hover .capability-icon {
@@ -1422,7 +1326,7 @@
             color: var(--color-neutral);
         }
 
-        /* SLIDE 7: Investment - ROI Refinado */
+        /* SLIDE 7: Investment */
         .roi-highlight {
             background: linear-gradient(135deg, var(--color-light) 0%, #F0F4FF 100%);
             padding: var(--space-xl);
@@ -1714,9 +1618,6 @@
             transition: transform var(--transition-base),
                         box-shadow var(--transition-base);
             cursor: pointer;
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
         }
 
         .invest-option {
@@ -1772,32 +1673,51 @@
         }
 
         /* ============================================
-           NAVEGACIÓN
+           NAVEGACIÓN CON AUTO-HIDE
            ============================================ */
         .navigation {
             position: fixed;
-            bottom: clamp(15px, 2vh, 30px);
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: clamp(25px, 3vw, 40px);
+            border-radius: 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: clamp(10px, 1.5vh, 20px) clamp(18px, 2vw, 35px);
+            padding: 15px 25px;
             border: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .navigation-trigger {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 100px;
+            z-index: 999;
+        }
+
+        .navigation-trigger:hover + .navigation,
+        .navigation:hover {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .slide-indicators {
             display: flex;
-            gap: clamp(10px, 1.5vw, 18px);
-            margin-bottom: clamp(10px, 1.5vh, 18px);
+            gap: 12px;
+            margin-bottom: 12px;
             justify-content: center;
         }
 
         .indicator {
-            width: clamp(8px, 1vw, 14px);
-            height: clamp(8px, 1vw, 14px);
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: rgba(13, 13, 56, 0.2);
             cursor: pointer;
@@ -1815,7 +1735,7 @@
         .indicator.active {
             background: #FF6B06;
             transform: scale(1.4);
-            box-shadow: 0 0 0 clamp(3px, 0.4vw, 5px) rgba(255, 107, 6, 0.2);
+            box-shadow: 0 0 0 3px rgba(255, 107, 6, 0.2);
         }
 
         .nav-controls {
@@ -1828,9 +1748,9 @@
             background: transparent;
             border: 1px solid rgba(13, 13, 56, 0.2);
             color: #1a202c;
-            padding: clamp(6px, 1vh, 12px) clamp(14px, 2vw, 28px);
-            border-radius: clamp(20px, 2.5vw, 30px);
-            font-size: clamp(13px, 1.2vw, 18px);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1842,7 +1762,7 @@
         }
 
         .nav-btn i {
-            font-size: clamp(12px, 1.1vw, 16px);
+            font-size: 13px;
         }
 
         .nav-btn:hover,
@@ -1854,84 +1774,20 @@
             box-shadow: 0 4px 12px rgba(13,13,56,0.15);
         }
 
-        /* Modo fullscreen simulado para móviles */
-        .mobile-fullscreen {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            overflow: hidden !important;
-            background: var(--color-white) !important;
+        /* Fullscreen mode adjustments */
+        :fullscreen,
+        :-webkit-full-screen {
+            background: #ffffff;
         }
-        
-        .mobile-fullscreen-active {
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            z-index: 9999 !important;
-            max-width: 100vw !important;
-            max-height: 100vh !important;
+
+        :fullscreen body,
+        :-webkit-full-screen body {
+            background: #ffffff;
         }
-        
-        /* Ajustes para móviles */
-        @media (max-width: 768px) {
-            .navigation {
-                bottom: 10px;
-                padding: 8px 12px;
-                border-radius: 20px;
-            }
-            
-            .slide-indicators {
-                gap: 8px;
-                margin-bottom: 8px;
-            }
-            
-            .indicator {
-                width: 10px;
-                height: 10px;
-            }
-            
-            .nav-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-                border-radius: 16px;
-            }
-            
-            .nav-btn i {
-                font-size: 11px;
-            }
-            
-            /* Ocultar texto en móviles pequeños, solo iconos */
-            @media (max-width: 480px) {
-                .nav-btn span {
-                    display: none;
-                }
-                
-                .nav-btn {
-                    padding: 8px 10px;
-                }
-            }
-        }
-        
-        /* iOS specific fixes */
-        @supports (-webkit-touch-callout: none) {
-            /* iOS Safari */
-            .presentation-container {
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-            }
-            
-            /* Prevenir el bounce effect en iOS */
-            body {
-                position: fixed;
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
-            }
+
+        :fullscreen .presentation-container,
+        :-webkit-full-screen .presentation-container {
+            position: relative;
         }
 
         /* Footnotes */
@@ -1952,13 +1808,9 @@
             font-size: 11px;
             color: var(--color-muted);
         }
-        
-        .footnote sup {
-            font-weight: var(--weight-semibold);
-        }
 
         /* ============================================
-           ANIMACIONES DE ENTRADA - Más sutiles y profesionales
+           ANIMACIONES DE ENTRADA
            ============================================ */
         @keyframes fadeInUp {
             from {
@@ -1971,12 +1823,10 @@
             }
         }
 
-        /* Elementos animados comienzan ocultos */
         .slide .point,
         .slide .productivity-card,
         .slide .metric-card,
         .slide .capability,
-        .slide .solution-item,
         .slide .track-item,
         .slide .investment-section,
         .slide .deliverable-section,
@@ -1985,12 +1835,10 @@
             opacity: 0;
         }
 
-        /* Cuando el slide está activo, se aplican las animaciones */
         .slide.active .point,
         .slide.active .productivity-card,
         .slide.active .metric-card,
         .slide.active .capability,
-        .slide.active .solution-item,
         .slide.active .track-item,
         .slide.active .investment-section,
         .slide.active .deliverable-section,
@@ -1999,7 +1847,6 @@
             animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
         }
 
-        /* Delays escalonados más sutiles */
         .slide.active .point:nth-child(1),
         .slide.active .productivity-card:nth-child(1),
         .slide.active .metric-card:nth-child(1),
@@ -2021,7 +1868,6 @@
             animation-delay: 0.15s;
         }
 
-        /* Delays para elementos en grupos de 4 */
         .slide.active .capability:nth-child(1),
         .slide.active .milestone:nth-child(1) {
             animation-delay: 0.05s;
@@ -2042,7 +1888,6 @@
             animation-delay: 0.2s;
         }
 
-        /* Delays para elementos en pares */
         .slide.active .deliverable-section:nth-child(1),
         .slide.active .option:nth-child(1) {
             animation-delay: 0.05s;
@@ -2102,7 +1947,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 2: Productivity Revolution - SIMPLIFICADA -->
+        <!-- SLIDE 2: Productivity Revolution -->
         <div class="slide">
             <div class="slide-content">
                 <h1>The Productivity Revolution We're Missing</h1>
@@ -2177,7 +2022,7 @@
             </div>
 
             <div class="footnote">
-                <p><sup>1</sup>  Lost value calculated: By reversing the operational/value ratio from 70/30 to 30/70, the 40% time differential dedicated to value creation equals USD $1.2M annually based on current team cost</p>
+                <p><sup>1</sup> Lost value calculated: By reversing the operational/value ratio from 70/30 to 30/70, the 40% time differential dedicated to value creation equals USD $1.2M annually based on current team cost</p>
             </div>
 
             <div class="cta-section">
@@ -2186,13 +2031,13 @@
             </div>
         </div>
 
-        <!-- SLIDE 3: Why Digital Transformations Fail - COMPLETAMENTE REDISEÑADA CON GRÁFICO ESCALADO -->
+        <!-- SLIDE 3: Why Digital Transformations Fail -->
         <div class="slide">
             <div class="slide-content">
                 <h1>Why Digital Transformations Fail in Financial Services</h1>
                 
                 <div class="failure-visualization">
-                    <!-- Estadística impactante con visualización ESCALADA -->
+                    <!-- Estadística impactante con visualización -->
                     <div class="failure-metric">
                         <svg class="circular-progress" viewBox="0 0 220 220">
                             <circle cx="110" cy="110" r="100" fill="none" stroke="#E2E8F0" stroke-width="10"/>
@@ -2201,7 +2046,7 @@
                                     transform="rotate(-90 110 110)"
                                     class="progress-ring"/>
                             <text x="110" y="100" text-anchor="middle" class="percentage-text">70%</text>
-                            <text x="110" y="130" text-anchor="middle" class="percentage-label">FAILURE RATE</text>
+                            <text x="110" y="130" text-anchor="middle" class="percentage-label" font-size="14" font-weight="600" fill="#64748B" letter-spacing="0.08em">FAILURE RATE</text>
                         </svg>
                         <p class="failure-subtitle">of digital transformations collapse due to fundamental disconnects<sup>1</sup></p>
                         <p class="citation-note"><sup>1</sup>McKinsey & Company (2023). "Losing from Day One: Why Even Successful Transformations Fall Short"</p>
@@ -2411,7 +2256,7 @@
             </div>
         </div>
 
-        <!-- SLIDE 6: Journey Timeline -->
+        <!-- SLIDE 6: The Transformation -->
         <div class="slide">
             <div class="slide-content">
                 <h1>From Manual Reporting to Strategic Alpha Generation</h1>
@@ -2672,7 +2517,8 @@
 
     </div>
 
-    <!-- NAVEGACIÓN -->
+    <!-- NAVEGACIÓN CON AUTO-HIDE TRIGGER -->
+    <div class="navigation-trigger"></div>
     <div class="navigation">
         <div class="slide-indicators">
             <button class="indicator active" data-slide="0"></button>
@@ -2696,8 +2542,8 @@
     <script>
         class PresentationEngine {
             constructor() {
-                this.baseWidth = 1920;
-                this.baseHeight = 1080;
+                this.baseWidth = 1280;
+                this.baseHeight = 720;
                 this.currentSlide = 0;
                 this.slides = document.querySelectorAll('.slide');
                 this.indicators = document.querySelectorAll('.indicator');
@@ -2709,25 +2555,10 @@
             }
 
             init() {
-                // Detectar y corregir zoom del navegador
-                this.detectAndFixZoom();
-                
-                // Detectar dispositivo móvil
-                this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                
                 // Configurar eventos de botones
                 document.getElementById('prevBtn').addEventListener('click', () => this.prevSlide());
                 document.getElementById('nextBtn').addEventListener('click', () => this.nextSlide());
                 document.getElementById('fullscreenBtn').addEventListener('click', () => this.toggleFullscreen());
-                
-                // En móviles iOS, ocultar automáticamente la barra de direcciones
-                if (this.isMobile && /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                    window.addEventListener('load', () => {
-                        setTimeout(() => {
-                            window.scrollTo(0, 1);
-                        }, 100);
-                    });
-                }
                 
                 // Configurar indicadores
                 this.indicators.forEach((indicator, index) => {
@@ -2737,52 +2568,32 @@
                 // Teclado
                 document.addEventListener('keydown', (e) => this.handleKeyboard(e));
                 
-                // Touch/swipe support mejorado para móviles
+                // Touch/swipe support
                 let touchStartX = 0;
                 let touchStartY = 0;
-                let touchEndX = 0;
-                let touchEndY = 0;
                 
                 this.container.addEventListener('touchstart', (e) => {
                     touchStartX = e.touches[0].clientX;
                     touchStartY = e.touches[0].clientY;
-                }, { passive: true });
-                
-                this.container.addEventListener('touchmove', (e) => {
-                    touchEndX = e.touches[0].clientX;
-                    touchEndY = e.touches[0].clientY;
-                }, { passive: true });
+                });
                 
                 this.container.addEventListener('touchend', (e) => {
-                    if (!touchEndX && !touchEndY) {
-                        touchEndX = touchStartX;
-                        touchEndY = touchStartY;
-                    }
-                    
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const touchEndY = e.changedTouches[0].clientY;
                     const deltaX = touchStartX - touchEndX;
                     const deltaY = Math.abs(touchStartY - touchEndY);
                     
-                    // Hacer el swipe más sensible en móviles
-                    const minSwipeDistance = this.isMobile ? 30 : 50;
-                    
-                    if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > deltaY) {
+                    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > deltaY) {
                         if (deltaX > 0) {
                             this.nextSlide();
                         } else {
                             this.prevSlide();
                         }
                     }
-                    
-                    // Reset
-                    touchEndX = 0;
-                    touchEndY = 0;
                 });
                 
                 // Resize
                 window.addEventListener('resize', () => this.scaleToFit());
-                window.addEventListener('orientationchange', () => {
-                    setTimeout(() => this.scaleToFit(), 100);
-                });
                 document.addEventListener('fullscreenchange', () => this.handleFullscreenChange());
                 document.addEventListener('webkitfullscreenchange', () => this.handleFullscreenChange());
                 
@@ -2793,25 +2604,6 @@
                 
                 // Iniciar animaciones
                 this.initAnimations();
-            }
-
-            detectAndFixZoom() {
-                // Detectar el zoom del navegador silenciosamente
-                const browserZoomLevel = Math.round(window.devicePixelRatio * 100);
-                
-                // Log solo en consola para debugging si es necesario
-                if (browserZoomLevel !== 100) {
-                    console.log('Browser zoom level:', browserZoomLevel + '%');
-                }
-                
-                // Forzar el viewport para mejor compatibilidad
-                let viewport = document.querySelector('meta[name=viewport]');
-                if (!viewport) {
-                    viewport = document.createElement('meta');
-                    viewport.name = 'viewport';
-                    document.head.appendChild(viewport);
-                }
-                viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
             }
 
             initAnimations() {
@@ -2847,10 +2639,12 @@
                 
                 // Animar números en slides activos
                 const activeSlide = this.slides[this.currentSlide];
-                activeSlide.querySelectorAll('[data-animate-number]').forEach(el => {
-                    const endValue = parseInt(el.dataset.animateNumber);
-                    animateValue(el, 0, endValue, 1000);
-                });
+                if (activeSlide) {
+                    activeSlide.querySelectorAll('[data-animate-number]').forEach(el => {
+                        const endValue = parseInt(el.dataset.animateNumber);
+                        animateValue(el, 0, endValue, 1000);
+                    });
+                }
             }
 
             animateProgressBars() {
@@ -2885,44 +2679,27 @@
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
                 
-                // Detectar si es móvil
-                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                // Get device pixel ratio
+                const dpr = window.devicePixelRatio || 1;
                 
-                // Detectar zoom del navegador y compensar
-                const browserZoomLevel = window.devicePixelRatio || 1;
+                // Calculate base scales
+                const scaleX = viewportWidth / this.baseWidth;
+                const scaleY = viewportHeight / this.baseHeight;
                 
-                // Para móviles, usar el viewport completo
-                let scale;
-                if (isMobile) {
-                    // En móviles, calcular escala para usar el 100% del viewport
-                    const scaleX = viewportWidth / this.baseWidth;
-                    const scaleY = viewportHeight / this.baseHeight;
-                    scale = Math.min(scaleX, scaleY) * 0.95; // 95% para dejar pequeño margen
+                // Use Math.min to ensure all content is visible
+                let scale = Math.min(scaleX, scaleY);
+                
+                // Apply safety margin based on DPR
+                if (dpr >= 1.5) {
+                    scale = scale * 0.92; // 8% safety margin for 150% scaling
+                } else if (dpr >= 1.25) {
+                    scale = scale * 0.95; // 5% safety margin for 125% scaling
                 } else {
-                    // En desktop, compensar el zoom
-                    const adjustedWidth = viewportWidth / browserZoomLevel;
-                    const adjustedHeight = viewportHeight / browserZoomLevel;
-                    
-                    const scaleX = adjustedWidth / this.baseWidth;
-                    const scaleY = adjustedHeight / this.baseHeight;
-                    
-                    const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
-                    
-                    scale = isFullscreen 
-                        ? Math.min(viewportWidth / this.baseWidth, viewportHeight / this.baseHeight)
-                        : Math.min(viewportWidth / this.baseWidth, viewportHeight / this.baseHeight) * 0.85;
+                    scale = scale * 0.98; // 2% safety margin for normal displays
                 }
                 
-                // Aplicar la transformación
+                // Apply transform
                 this.container.style.transform = `scale(${scale})`;
-                
-                // En modo fullscreen simulado, ajustar también
-                if (document.body.classList.contains('mobile-fullscreen')) {
-                    this.container.style.transform = `scale(${scale * 1.05})`;
-                }
-                
-                // Ajustar el contenedor padre para centrarlo mejor
-                document.body.style.zoom = '1';
             }
 
             showSlide(index) {
@@ -3009,53 +2786,16 @@
             }
 
             toggleFullscreen() {
-                // Detectar si es móvil
-                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                
                 if (!document.fullscreenElement && !document.webkitFullscreenElement) {
                     const elem = document.documentElement;
-                    
-                    // Intentar diferentes APIs de fullscreen
                     if (elem.requestFullscreen) {
-                        elem.requestFullscreen().catch(err => {
-                            console.log('Fullscreen error:', err);
-                            if (isMobile) {
-                                this.simulateMobileFullscreen();
-                            }
-                        });
+                        elem.requestFullscreen();
                     } else if (elem.webkitRequestFullscreen) {
                         elem.webkitRequestFullscreen();
-                    } else if (elem.mozRequestFullScreen) {
-                        elem.mozRequestFullScreen();
-                    } else if (elem.msRequestFullscreen) {
-                        elem.msRequestFullscreen();
-                    } else if (isMobile) {
-                        // Si no hay soporte de fullscreen, simular en móviles
-                        this.simulateMobileFullscreen();
                     }
                 } else {
                     this.exitFullscreen();
                 }
-            }
-            
-            simulateMobileFullscreen() {
-                // Crear modo fullscreen simulado para móviles
-                document.body.classList.toggle('mobile-fullscreen');
-                this.container.classList.toggle('mobile-fullscreen-active');
-                
-                // Ocultar barras de navegación en iOS
-                window.scrollTo(0, 1);
-                
-                // Actualizar el botón
-                const fullscreenBtn = document.getElementById('fullscreenBtn');
-                if (document.body.classList.contains('mobile-fullscreen')) {
-                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Exit';
-                } else {
-                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
-                }
-                
-                // Re-escalar después del cambio
-                setTimeout(() => this.scaleToFit(), 100);
             }
 
             exitFullscreen() {
@@ -3063,18 +2803,7 @@
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
                 }
-                
-                // También salir del modo simulado si existe
-                document.body.classList.remove('mobile-fullscreen');
-                this.container.classList.remove('mobile-fullscreen-active');
-                
-                const fullscreenBtn = document.getElementById('fullscreenBtn');
-                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Fullscreen';
             }
 
             handleFullscreenChange() {
@@ -3082,14 +2811,7 @@
             }
         }
 
-        // Inicializar la presentación cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                const presentation = new PresentationEngine();
-            });
-        } else {
-            const presentation = new PresentationEngine();
-        }
+        const presentation = new PresentationEngine();
     </script>
 </body>
 </html>
