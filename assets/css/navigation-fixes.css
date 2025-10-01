@@ -1,0 +1,75 @@
+/* ============================================
+   FIXES PARA NAVEGACIÓN
+   ============================================ */
+
+/* Eliminar el círculo blanco extra del primer botón */
+.nav-btn::before {
+    display: none !important;
+}
+
+/* Tooltips corregidos usando ::after en lugar de ::before */
+.nav-btn[title]::after {
+    content: attr(title);
+    position: absolute;
+    right: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(26, 32, 44, 0.95);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.nav-btn:hover::after {
+    opacity: 1;
+}
+
+/* Centrar correctamente el ícono del botón fullscreen */
+#fullscreenBtn {
+    margin-top: 8px;
+    padding-top: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    position: relative;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Línea separadora encima del botón fullscreen */
+#fullscreenBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    display: block !important;
+}
+
+/* Asegurar que el ícono esté centrado */
+#fullscreenBtn i {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Asegurar que todos los íconos de botones estén centrados */
+.nav-btn i {
+    font-size: 16px !important;
+    color: white;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}

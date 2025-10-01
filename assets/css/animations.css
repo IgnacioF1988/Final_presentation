@@ -1,0 +1,192 @@
+/* ============================================
+   ANIMACIONES Y KEYFRAMES
+   Data Strategic Transformation | Moneda Patria
+   ============================================ */
+
+/* ============================================
+   ANIMACIONES GENERALES
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes pulse-warning {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulse-disconnect {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes pulse-badge {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.1); opacity: 0.1; }
+}
+
+/* ============================================
+   ANIMACIONES DE BARRAS
+   ============================================ */
+@keyframes fillBar30 {
+    from { width: 0; }
+    to { width: 30%; }
+}
+
+@keyframes fillBar70 {
+    from { width: 0; }
+    to { width: 70%; }
+}
+
+/* ============================================
+   ANIMACIONES DE PROGRESO CIRCULAR
+   ============================================ */
+@keyframes drawCircle {
+    from {
+        stroke-dashoffset: 628.3;
+    }
+    to {
+        stroke-dashoffset: 188.5;
+    }
+}
+
+/* ============================================
+   ANIMACIONES DE ENTRADA POR SLIDE
+   ============================================ */
+
+/* Elementos animados comienzan ocultos */
+.slide .point,
+.slide .productivity-card,
+.slide .metric-card,
+.slide .capability,
+.slide .solution-item,
+.slide .track-item,
+.slide .investment-section,
+.slide .deliverable-section,
+.slide .milestone,
+.slide .option {
+    opacity: 0;
+}
+
+/* Cuando el slide está activo, se aplican las animaciones */
+.slide.active .point,
+.slide.active .productivity-card,
+.slide.active .metric-card,
+.slide.active .capability,
+.slide.active .solution-item,
+.slide.active .track-item,
+.slide.active .investment-section,
+.slide.active .deliverable-section,
+.slide.active .milestone,
+.slide.active .option {
+    animation: fadeInUp 0.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+/* ============================================
+   DELAYS ESCALONADOS - Grupos de 3
+   ============================================ */
+.slide.active .point:nth-child(1),
+.slide.active .productivity-card:nth-child(1),
+.slide.active .metric-card:nth-child(1),
+.slide.active .investment-section:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.slide.active .point:nth-child(2),
+.slide.active .productivity-card:nth-child(2),
+.slide.active .metric-card:nth-child(2),
+.slide.active .investment-section:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.slide.active .point:nth-child(3),
+.slide.active .productivity-card:nth-child(3),
+.slide.active .metric-card:nth-child(3),
+.slide.active .investment-section:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+/* ============================================
+   DELAYS ESCALONADOS - Grupos de 4
+   ============================================ */
+.slide.active .capability:nth-child(1),
+.slide.active .milestone:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.slide.active .capability:nth-child(2),
+.slide.active .milestone:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.slide.active .capability:nth-child(3),
+.slide.active .milestone:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.slide.active .capability:nth-child(4),
+.slide.active .milestone:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+/* ============================================
+   DELAYS ESCALONADOS - Grupos de 2
+   ============================================ */
+.slide.active .deliverable-section:nth-child(1),
+.slide.active .option:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.slide.active .deliverable-section:nth-child(2),
+.slide.active .option:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+/* ============================================
+   DELAYS PARA TRACK ITEMS
+   ============================================ */
+.slide.active .track-item:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.slide.active .track-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.slide.active .track-item:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+/* ============================================
+   TRANSICIONES SUAVES
+   ============================================ */
+.slide {
+    transition: all var(--transition-smooth);
+}
+
+.slide.active {
+    transition: all var(--transition-smooth);
+}
+
+.slide.prev {
+    transition: all var(--transition-smooth);
+}
