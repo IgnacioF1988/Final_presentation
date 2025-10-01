@@ -1,0 +1,88 @@
+/* ============================================
+   SISTEMA DE DISEÑO - Variables Globales
+   Data Strategic Transformation | Moneda Patria
+   ============================================ */
+
+:root {
+    /* Canvas Base */
+    --canvas-width: 1920px;
+    --canvas-height: 1080px;
+
+    /* Control de ancho de columnas */
+    --grid-max-width: 1400px;
+
+    /* Responsive Scale Factors */
+    --min-scale: 0.5;
+    --max-scale: 1.5;
+    --scale-margin: 0.95; /* Margen más conservador que 0.9 */
+
+    /* Espaciados - Sistema 8px estricto con clamp */
+    --space-xs: clamp(6px, 0.4vw, 8px);
+    --space-sm: clamp(12px, 0.8vw, 16px);
+    --space-md: clamp(18px, 1.25vw, 24px);
+    --space-lg: clamp(24px, 1.67vw, 32px);
+    --space-xl: clamp(36px, 2.5vw, 48px);
+    --space-xxl: clamp(48px, 3.33vw, 64px);
+
+    /* Padding del Slide - Responsive */
+    --slide-padding-y: clamp(40px, 3.33vw, 64px);
+    --slide-padding-x: clamp(60px, 6.25vw, 120px);
+
+    /* Tipografía - Escala Modular 1.25 (Major Third) con Responsive */
+    --font-h1: clamp(40px, 2.92vw, 56px);
+    --font-h2: clamp(32px, 2.29vw, 44px);
+    --font-h3: clamp(28px, 1.88vw, 36px);
+    --font-h4: clamp(22px, 1.46vw, 28px);
+    --font-h5: clamp(18px, 1.15vw, 22px);
+    --font-body: clamp(16px, 0.94vw, 18px);
+    --font-small: clamp(14px, 0.83vw, 16px);
+    --font-tiny: clamp(12px, 0.73vw, 14px);
+
+    /* Font Weights Consistentes */
+    --weight-light: 300;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+
+    /* Line Heights */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.7;
+
+    /* Colores Principales - Refinados para Finanzas */
+    --color-primary: #0D0D38;
+    --color-secondary: #1E3A8A;
+    --color-accent: #EA580C;
+    --color-success: #10B981;
+    --color-danger: #EF4444;
+    --color-neutral: #64748B;
+    --color-light: #F8FAFC;
+    --color-white: #ffffff;
+
+    /* Colores Adicionales */
+    --color-muted: #94A3B8;
+    --color-border: #E2E8F0;
+    --color-background: #F1F5F9;
+
+    /* Iconos - Más Consistentes */
+    --icon-large: 40px;
+    --icon-medium: 32px;
+    --icon-small: 24px;
+    --icon-tiny: 20px;
+
+    /* Bordes */
+    --border-radius: 12px;
+    --border-radius-small: 8px;
+    --border-radius-large: 16px;
+    --border-width: 2px;
+
+    /* Sombras Sutiles */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --shadow-xl: 0 16px 48px rgba(0,0,0,0.16);
+
+    /* Transiciones */
+    --transition-base: 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
